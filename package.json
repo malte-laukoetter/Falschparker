@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@material/mwc-checkbox": "^0.3.3",
+    "@vaadin/vaadin-grid": "^5.2.5"
+  }
+}
