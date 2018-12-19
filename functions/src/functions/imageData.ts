@@ -1,4 +1,4 @@
-import { Storage } from '@google-cloud/storage'
+import { Storage, File } from '@google-cloud/storage'
 import { spawn } from 'child-process-promise'
 import * as ExifParser from 'exif-parser'
 import { database } from 'firebase-admin'
@@ -36,7 +36,7 @@ function parseExifData (fileBuffer: Buffer): ImageData {
   const result = parser.parse()
   const lat: number = result.tags.GPSLatitude || 0
   const lon: number = result.tags.GPSLongitude || 0
-  const date = result.tags.CreateDate || result.tags.ModifyDate || 0
+  const date: number = result.tags.CreateDate || result.tags.ModifyDate || 0
 
   return {
     loc: {
@@ -47,10 +47,25 @@ function parseExifData (fileBuffer: Buffer): ImageData {
   }
 }
 
-async function getPlate (url) {
+async function getPlate (url): Promise<string> {
   const plateRecognitionResult = await fetch(`https://api.openalpr.com/v2/recognize_url?&country=eu&secret_key=${config().openalpr.secret_key}&image_url=${encodeURIComponent(url)}`, { method: 'POST' }).then(res => res.json())
   const plate = plateRecognitionResult ? plateRecognitionResult.results ? plateRecognitionResult.results[0] ? plateRecognitionResult.results[0].plate || '' : '' : '' : ''
   return formatPlate(plate)
+}
+
+async function createImageData(file: File): Promise<ImageData> {
+  // Download file and parse EXIF data.
+  const fileBuffer = (await file.download())[0]
+  const exifData = parseExifData(fileBuffer)
+
+  // Get kfz plate via openAlpr.
+  const openalprUrl = await getFileUrl(file, new Date().getTime() + 1000 * 60 * 30)
+  const plate = await getPlate(openalprUrl)
+
+  // Get download url for the image.
+  const imgUrl = await getFileUrl(file, new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10)
+
+  return { ...exifData, url: imgUrl, plate };
 }
 
 async function getFileUrl (file: File, expires: number) {
@@ -107,8 +122,7 @@ export const imageData = storageFunctions.object().onFinalize(async (object, con
   const filePath = object.name
   // Exit if this is triggered on a file that is not an image.
   if (!object.contentType.startsWith('image/')) {
-    console.log('This is not an image.')
-    return null
+    return console.log('This is not an image.')
   }
 
   // Exit if the image is a thumbnail.
@@ -116,26 +130,18 @@ export const imageData = storageFunctions.object().onFinalize(async (object, con
     return console.log('This is a thumbnail.')
   }
 
-  // Download file from bucket.
+  // Get file from bucket.
   const bucket = gcs.bucket(object.bucket)
   const file = bucket.file(filePath)
 
-  // Parse EXIF data
-  const fileBuffer = (await file.download())[0]
-  const data = parseExifData(fileBuffer)
+  // Get the information form the image file.
+  const data = await createImageData(file)
 
-  // Get kfz plate
-  const openalprUrl = await getFileUrl(file, new Date().getTime() + 1000 * 60 * 30)
-  const plate = await getPlate(openalprUrl)
-
-  // get image url
-  const imgUrl = await getFileUrl(file, new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10)
-
-  // store data in database
+  // Store information in database.
   const ref = database().ref('images').push()
-  ref.set({ ...data, url: imgUrl, plate: plate, filePath })
+  ref.set({ ...data, filePath })
 
-  // Create thumbnail
+  // Create thumbnail.
   const thumbFile = await createThumbnail(object)
   const thumbFileUrl = await getFileUrl(thumbFile, new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10)
   ref.child('thumbnail').set(thumbFileUrl)
