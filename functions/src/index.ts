@@ -1,5 +1,7 @@
 import { initializeApp } from 'firebase-admin'
+import { config } from 'firebase-functions'
 
+config()
 initializeApp()
 
 export { geoCoding } from './functions/geoCoding'
