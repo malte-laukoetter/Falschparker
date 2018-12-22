@@ -19,17 +19,6 @@ const firebaseApp = initializeApp({
   messagingSenderId: "418563000081"
 });
 
-auth().onAuthStateChanged((user) => {
-  if (user) {
-    console.log('Anonymous user signed-in.', user);
-  }
-  else {
-    console.log('There was no anonymous session. Creating a new anonymous user.');
-    // Sign the user in anonymously since accessing Storage requires the user to be authenticated.
-    auth().signInAnonymously();
-  }
-});
-
 Vue.use(Vuetify);
 Vue.use(VueFire);
 
@@ -48,3 +37,11 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+auth().onAuthStateChanged(user => {
+  if (user) {
+    console.log("User signed-in.", user);
+  } else {
+    router.push('/login')
+  }
+});

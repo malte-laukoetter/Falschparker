@@ -9,13 +9,16 @@
 </template>
 
 <script>
-import {storage} from 'firebase'
+import {storage, auth} from 'firebase'
 import * as uuid from 'uuid/v1'
-
 
 export default {
   methods: {
     async upload (file) {
+      if(!auth().currentUser){
+        this.$router.push('/login');
+      }
+
       const metadata = {
         contentType: file.type
       };
@@ -24,7 +27,7 @@ export default {
       const filePath = file.name;
 
       try {
-        const snapshot = await storage().ref('images').child(filePath).put(file, metadata);
+        const snapshot = await storage().ref('images').child(auth().currentUser.uid).child(filePath).put(file, metadata);
         console.log('Uploaded', snapshot.totalBytes, 'bytes.');
       } catch (error) {
         console.error('Upload failed:', error);

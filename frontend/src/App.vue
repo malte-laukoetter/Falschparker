@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
        <v-toolbar-items>
         <v-btn flat @click="() => $router.push('/send')">Send</v-btn>
-        <v-btn flat @click="() => $router.push('/')">Upload</v-btn>
+        <v-btn flat @click="() => $router.push('/upload')">Upload</v-btn>
 
       </v-toolbar-items>
     </v-toolbar>
