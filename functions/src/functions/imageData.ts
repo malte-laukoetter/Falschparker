@@ -43,7 +43,8 @@ function parseExifData (fileBuffer: Buffer): ImageData {
       lat,
       lon
     },
-    date
+    date,
+    where: 'Geh-/Radweg'
   }
 }
 
