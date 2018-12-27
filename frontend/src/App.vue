@@ -3,12 +3,11 @@
     <v-toolbar
       app
     >
-       <v-toolbar-title>Title</v-toolbar-title>
+       <v-toolbar-title>Falschparker</v-toolbar-title>
       <v-spacer></v-spacer>
        <v-toolbar-items>
         <v-btn flat @click="() => $router.push('/send')">Send</v-btn>
         <v-btn flat @click="() => $router.push('/upload')">Upload</v-btn>
-
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -19,9 +18,11 @@
 
 <script>
 export default {
+  name: 'App',
   data () {
-    return {}
-  },
-  name: 'App'
+    return {
+      //
+    }
+  }
 }
 </script>
