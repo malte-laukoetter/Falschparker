@@ -37,15 +37,13 @@ export default class Login extends Vue {
             }
           ],
           // Terms of service url.
-          tosUrl: () => { console.log('TODO: TOS') },
+          tosUrl: 'https://lergin.de/privacy',
           // Privacy policy url.
-          privacyPolicyUrl: () => { console.log('TODO: PRIVACY') },
+          privacyPolicyUrl: 'https://lergin.de/privacy',
           credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
         }
 
         ui.start(this.$refs['firebaseui-auth-container'] as Element, uiConfig)
-        // Sign the user in anonymously since accessing Storage requires the user to be authenticated.
-        // auth().signInAnonymously();
       }
     })
   }
