@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "short_name": "frontend",
+  "name": "Falschparker",
+  "short_name": "Falschparker",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
