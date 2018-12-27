@@ -116,17 +116,16 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { database } from 'firebase'
-// import '../vuefire.d.ts'
+import '../vuefire'
 
 @Component({
   firebase () {
     const db = database()
     return {
-    // simple syntax, bind as an array by default
       items: db.ref('images')
     }
   }
-} as any)
+})
 export default class Send extends Vue {
   private dialog = {}
   private pagination = {
@@ -156,36 +155,36 @@ export default class Send extends Vue {
   ]
 
   savePlate (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('plate').set(item.plate)
+    this.$firebaseRefs.items.child(item['.key']).child('plate').set(item.plate)
   }
 
   saveLoc (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('loc').set(item.loc)
+    this.$firebaseRefs.items.child(item['.key']).child('loc').set(item.loc)
   }
 
   saveParking (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('parking').set(item.parking)
+    this.$firebaseRefs.items.child(item['.key']).child('parking').set(item.parking)
   }
 
   saveWhere (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('where').set(item.where)
+    this.$firebaseRefs.items.child(item['.key']).child('where').set(item.where)
   }
 
   saveIntend (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('intend').set(item.intend)
-    ;(this as any).$firebaseRefs.items.child(item['.key']).child('intendReason').set(item.intendReason)
+    this.$firebaseRefs.items.child(item['.key']).child('intend').set(item.intend)
+    this.$firebaseRefs.items.child(item['.key']).child('intendReason').set(item.intendReason)
   }
 
   saveEndagering (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('endangering').set(item.endangering)
+    this.$firebaseRefs.items.child(item['.key']).child('endangering').set(item.endangering)
   }
 
   deleteItem (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).remove()
+    this.$firebaseRefs.items.child(item['.key']).remove()
   }
 
   send (item: any) {
-    (this as any).$firebaseRefs.items.child(item['.key']).child('send').set(true)
+    this.$firebaseRefs.items.child(item['.key']).child('send').set(true)
   }
 }
 </script>
