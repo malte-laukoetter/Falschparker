@@ -1,6 +1,6 @@
 {
   "name": "hh-report-firebase-functions",
-  "description": "Extract EXIF metadata from images Firebase Functions sample",
+  "description": "Firebase functions for hh-report",
   "main": "lib/index.js",
   "engines": {
     "node": "8"

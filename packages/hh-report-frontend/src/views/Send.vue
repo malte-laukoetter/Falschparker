@@ -153,11 +153,11 @@ export default class Send extends Vue {
 
   private parkingPlaces: ParkingPlaces[] = Object.values(ParkingPlaces)
 
-  private getFirebaseItemRef(item: FirebaseImageData) {
+  private getFirebaseItemRef (item: FirebaseImageData) {
     return this.$firebaseRefs.items.child(item['.key'])
   }
 
-  private setFirebaseItemProp(prop: keyof ImageData, item: FirebaseImageData) {
+  private setFirebaseItemProp (prop: keyof ImageData, item: FirebaseImageData) {
     this.getFirebaseItemRef(item).child(prop).set(item[prop])
   }
 

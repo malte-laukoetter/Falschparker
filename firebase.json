@@ -7,11 +7,11 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": "npm --prefix functions run build"
+    "predeploy": "npm --prefix packages/hh-report-firebase-functions run build"
   },
   "hosting": {
-    "predeploy": "npm --prefix frontend run build",
-    "public": "frontend/dist",
+    "predeploy": "npm --prefix packages/hh-report-firebase-frontend run build",
+    "public": "packages/hh-report-firebase-frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
