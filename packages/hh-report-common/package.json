@@ -1,11 +1,12 @@
 {
-  "name": "common",
-  "version": "1.0.0",
+  "name": "hh-report-common",
   "description": "",
-  "main": "index.js",
+  "main": "./main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true,
+  "version": "0.0.0"
 }

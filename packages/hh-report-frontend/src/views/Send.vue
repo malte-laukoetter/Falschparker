@@ -38,7 +38,6 @@
             </td>
             <td>
               <v-edit-dialog
-                :return-value.sync="props.location"
                 lazy
               > {{ props.item.address }}
                 <GmapMap
@@ -82,10 +81,10 @@
             </td>
             <td>
               <v-combobox
-                  :disabled="props.item.send"
+                :disabled="props.item.send"
                 @change="() => saveWhere(props.item)"
                 v-model="props.item.where"
-                :items="['Geh-/Radweg', 'Schutzstreifen', 'Kreuzung', 'Feuerwehrzufahrt']"
+                :items="parkingPlaces"
               ></v-combobox>
             </td>
             <td><v-checkbox v-model="props.item.endangering"
@@ -116,7 +115,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { database } from 'firebase'
+import { ImageData, ParkingPlaces } from '../../../hh-report-common/main'
 import '../vuefire'
+
+type FirebaseImageData = ImageData & {'.key': string}
 
 @Component({
   firebase () {
@@ -127,64 +129,69 @@ import '../vuefire'
   }
 })
 export default class Send extends Vue {
-  private dialog = {}
-  private pagination = {
+  private pagination: {
+    descending?: boolean,
+    sortBy?: keyof ImageData,
+    rowsPerPage?: number
+  } = {
     descending: true,
     sortBy: 'date',
     rowsPerPage: 10
   }
-  private location = {}
-  private headers = [
-    {
-      text: 'Bild',
-      value: 'img',
-      sortable: false,
-      width: '150px'
-    },
-    {
-      text: 'Datum',
-      value: 'date'
-    },
+
+  private headers: {text: string, value?: keyof ImageData, sortable?: boolean, width?: string}[] = [
+    { text: 'Bild', sortable: false, width: '150px' },
+    { text: 'Datum', value: 'date' },
     { text: 'Kennzeichen', value: 'plate' },
     { text: 'Addresse', value: 'address' },
     { text: 'Parken', value: 'parking' },
     { text: 'Wo', value: 'where' },
     { text: 'Gefährdung', value: 'endangering' },
     { text: 'Vorsatz', value: 'intend' },
-    { text: '', value: '', sortable: false }
+    { text: '', sortable: false }
   ]
 
-  savePlate (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('plate').set(item.plate)
+  private parkingPlaces: ParkingPlaces[] = Object.values(ParkingPlaces)
+
+  private getFirebaseItemRef(item: FirebaseImageData) {
+    return this.$firebaseRefs.items.child(item['.key'])
   }
 
-  saveLoc (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('loc').set(item.loc)
+  private setFirebaseItemProp(prop: keyof ImageData, item: FirebaseImageData) {
+    this.getFirebaseItemRef(item).child(prop).set(item[prop])
   }
 
-  saveParking (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('parking').set(item.parking)
+  savePlate (item: FirebaseImageData) {
+    this.setFirebaseItemProp('plate', item)
   }
 
-  saveWhere (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('where').set(item.where)
+  saveLoc (item: FirebaseImageData) {
+    this.setFirebaseItemProp('loc', item)
   }
 
-  saveIntend (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('intend').set(item.intend)
-    this.$firebaseRefs.items.child(item['.key']).child('intendReason').set(item.intendReason)
+  saveParking (item: FirebaseImageData) {
+    this.setFirebaseItemProp('parking', item)
   }
 
-  saveEndagering (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('endangering').set(item.endangering)
+  saveWhere (item: FirebaseImageData) {
+    this.setFirebaseItemProp('where', item)
   }
 
-  deleteItem (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).remove()
+  saveIntend (item: FirebaseImageData) {
+    this.setFirebaseItemProp('intend', item)
+    this.setFirebaseItemProp('intendReason', item)
   }
 
-  send (item: any) {
-    this.$firebaseRefs.items.child(item['.key']).child('send').set(true)
+  saveEndagering (item: FirebaseImageData) {
+    this.setFirebaseItemProp('endangering', item)
+  }
+
+  deleteItem (item: FirebaseImageData) {
+    this.getFirebaseItemRef(item).remove()
+  }
+
+  send (item: FirebaseImageData) {
+    this.getFirebaseItemRef(item).child('send').set(true)
   }
 }
 </script>

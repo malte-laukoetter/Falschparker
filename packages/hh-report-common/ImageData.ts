@@ -1,3 +1,5 @@
+import { ParkingPlaces } from "./ParkingPlaces";
+
 export type ImageData = {
   address?: string;
   date?: number;
@@ -11,7 +13,7 @@ export type ImageData = {
   send?: boolean;
   thumbnail?: string;
   url?: string;
-  where?: string;
+  where?: ParkingPlaces;
   endangering?: boolean;
   parking?: boolean;
   intend?: boolean;

@@ -2,8 +2,7 @@ import { database, storage } from 'firebase-admin'
 import { config, database as databaseFunctions } from 'firebase-functions'
 import fetch from 'node-fetch'
 import * as FormData from 'form-data'
-import { ImageData } from '../ImageData'
-import { ReporterData } from '../ReporterData'
+import { ImageData, ReporterData } from "hh-report-common";
 
 type MailTemplateOptions = ImageData & {
   mailTo: string;
