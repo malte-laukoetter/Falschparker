@@ -14,3 +14,7 @@
     "secret_key": "sk_xxx"                                                 
   }                                                                                             
 } 
+
+npm i -g install-local
+
+install-local ..\hh-report-common\

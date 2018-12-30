@@ -1,5 +1,5 @@
 {
-  "name": "hh-report-firebase-functions",
+  "name": "@lergin/hh-report-firebase-functions",
   "description": "Firebase functions for hh-report",
   "main": "lib/index.js",
   "engines": {
@@ -16,7 +16,7 @@
     "firebase-admin": "~5.11.0",
     "firebase-functions": "^2.1.0",
     "form-data": "^2.3.3",
-    "hh-report-common": "^0.0.0",
+    "@lergin/hh-report-common": "file:../hh-report-common",
     "mkdirp-promise": "^5.0.1",
     "node-fetch": "^2.3.0",
     "node-geocoder": "^3.22.0",
