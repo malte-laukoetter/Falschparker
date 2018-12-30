@@ -1,9 +1,11 @@
 {
   "name": "hh-report-common",
   "description": "",
-  "main": "./main.ts",
+  "main": "./lib/main.js",
+  "types": "./lib/main.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "author": "",
   "license": "MIT",

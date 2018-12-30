@@ -2,7 +2,7 @@ import { database, storage } from 'firebase-admin'
 import { config, database as databaseFunctions } from 'firebase-functions'
 import fetch from 'node-fetch'
 import * as FormData from 'form-data'
-import { ImageData, ReporterData } from "hh-report-common";
+import { ImageData, ReporterData } from 'hh-report-common'
 
 type MailTemplateOptions = ImageData & {
   mailTo: string;
@@ -72,8 +72,8 @@ function convertDecimalLocationToStr (value): string {
   return `${deg}°${min}'${Math.round(sec)}"`
 }
 
-async function getAccessToken () {
-  const refreshToken = (await database().ref('reporter').child('refresh_token').once('value')).val()
+async function getAccessToken (userId: string) {
+  const refreshToken = (await database().ref('users').child(userId).child('data').child('refresh_token').once('value')).val()
 
   const formData = new FormData()
   formData.append('client_id', config().google.auth.client_id)
@@ -89,11 +89,11 @@ async function getAccessToken () {
   return accessToken
 }
 
-export const sendMail = databaseFunctions.ref('/images/{id}/send').onCreate(async (change, context) => {
+export const sendMail = databaseFunctions.ref('/users/{userId}/images/{id}/send').onCreate(async (change, context) => {
   const db = database()
   const ref = change.ref.parent
   const imageData: ImageData = (await ref.once('value')).val()
-  const reporterDataRef = db.ref('reporter')
+  const reporterDataRef = db.ref('users').child(context.params.userId).child('data')
   const reporterData: ReporterData = (await reporterDataRef.once('value')).val()
   const bucket = storage().bucket()
   const file = bucket.file(imageData.filePath)
@@ -109,7 +109,7 @@ export const sendMail = databaseFunctions.ref('/images/{id}/send').onCreate(asyn
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${await getAccessToken()}`,
+          Authorization: `Bearer ${await getAccessToken(context.params.userId)}`,
           'Content-Type': 'message/rfc822'
         },
         body: mailTemplate({

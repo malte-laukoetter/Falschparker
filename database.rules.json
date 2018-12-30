@@ -2,9 +2,67 @@
   "rules": {
     ".read": "false",
     ".write": "false",
-    "images": {
-      ".read": "auth !== null",
-      ".write": "auth !== null"
+    "users": {
+      "$uid": {
+        "data": {
+          "mailTo": {
+            ".write": "$uid === auth.uid",
+            ".read": "$uid === auth.uid"
+          },
+          "code": {
+            ".write": "$uid === auth.uid"            
+          },
+          "name": {
+            ".write": "$uid === auth.uid",
+            ".read": "$uid === auth.uid"
+          }
+        },
+        "images": {
+          "$image": {
+            "address": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isString()"
+            },
+            "date": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.val() * 1000 <= now"
+            },
+            "loc": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.child('lat').exists() && newData.child('lon').exists()"
+            },
+            "plate": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isString()"
+            },
+            "send": {
+              ".write": "$uid === auth.uid && newData.exists()",
+              ".validate": "data.isBoolean() && data.val() === false && newData.isBoolean() && newData.val() === true"
+            },
+            "where": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isString()"
+            },
+            "endangering": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isBoolean()"
+            },
+            "parking": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isBoolean()"
+            },
+            "intend": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isBoolean()"
+            },
+            "intendReason": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isString()"
+            }
+          },
+          ".read": "$uid === auth.uid"
+        }
+      }
     }
   }
 }

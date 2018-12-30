@@ -54,7 +54,7 @@ async function getPlate (url: string): Promise<string> {
   return formatPlate(plate)
 }
 
-async function createImageData(file: File): Promise<ImageData> {
+async function createImageData (file: File): Promise<ImageData> {
   // Download file and parse EXIF data.
   const fileBuffer = (await file.download())[0]
   const exifData = parseExifData(fileBuffer)
@@ -66,7 +66,7 @@ async function createImageData(file: File): Promise<ImageData> {
   // Get download url for the image.
   const imgUrl = await getFileUrl(file, new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10)
 
-  return { ...exifData, url: imgUrl, plate };
+  return { ...exifData, url: imgUrl, plate }
 }
 
 async function getFileUrl (file: File, expires: number) {
@@ -119,7 +119,7 @@ async function createThumbnail (object: storageFunctions.ObjectMetadata) {
   return thumbFile
 }
 
-export const imageData = storageFunctions.object().onFinalize(async (object, context) => {
+export const imageData = storageFunctions.bucket('falschparker').object().onFinalize(async (object, context) => {
   const filePath = object.name
   // Exit if this is triggered on a file that is not an image.
   if (!object.contentType.startsWith('image/')) {
@@ -131,6 +131,11 @@ export const imageData = storageFunctions.object().onFinalize(async (object, con
     return console.log('This is a thumbnail.')
   }
 
+  // Exit if the file was manually moved.
+  if (context.authType !== "USER") {
+    return console.log('Non user upload.')
+  }
+
   // Get file from bucket.
   const bucket = gcs.bucket(object.bucket)
   const file = bucket.file(filePath)
@@ -139,7 +144,7 @@ export const imageData = storageFunctions.object().onFinalize(async (object, con
   const data = await createImageData(file)
 
   // Store information in database.
-  const ref = database().ref('images').push()
+  const ref = database().ref('users').child(context.auth.uid).child('images').push()
   ref.set({ ...data, filePath })
 
   // Create thumbnail.

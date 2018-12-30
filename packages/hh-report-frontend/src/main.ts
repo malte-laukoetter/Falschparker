@@ -26,13 +26,14 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
-
 auth().onAuthStateChanged(user => {
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+
+
   if (user) {
     console.log('User signed-in.', user)
   } else {

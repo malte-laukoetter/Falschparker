@@ -114,7 +114,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { database } from 'firebase'
+import { database, auth } from 'firebase'
 import { ImageData, ParkingPlaces } from '../../../hh-report-common/main'
 import '../vuefire'
 
@@ -123,8 +123,10 @@ type FirebaseImageData = ImageData & {'.key': string}
 @Component({
   firebase () {
     const db = database()
+    const user = auth().currentUser
+
     return {
-      items: db.ref('images')
+      items: db.ref('users').child(user.uid).child('images')
     }
   }
 })

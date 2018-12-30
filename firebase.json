@@ -7,11 +7,17 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": "npm --prefix packages/hh-report-firebase-functions run build"
+    "source": "packages/hh-report-firebase-functions",
+    "predeploy": [
+      "npm --prefix packages/hh-report-firebase-functions run build",
+      "rsync -av --progress ./packages/hh-report-firebase-functions/. ./temp --exclude node_modules",
+      "rsync -av --progress ./packages/hh-report-common/. ./temp/hh-report-common --exclude node_modules",
+      "sed -i 's/hh-report-common\": \"^0.0.0\"/hh-report-common\": \"file:.\/hh-report-common\"/g' ./temp/package.json"
+    ]
   },
   "hosting": {
-    "predeploy": "npm --prefix packages/hh-report-firebase-frontend run build",
-    "public": "packages/hh-report-firebase-frontend/dist",
+    "predeploy": "npm --prefix packages/hh-report-frontend run build",
+    "public": "packages/hh-report-frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
