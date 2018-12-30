@@ -13,6 +13,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "gitHead": "bb80f3f6b1499c3988ff3d73dd5a766ec03fbd9a"
 }
