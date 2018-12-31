@@ -33,7 +33,6 @@ auth().onAuthStateChanged(user => {
     render: h => h(App)
   }).$mount('#app')
 
-
   if (user) {
     console.log('User signed-in.', user)
   } else {

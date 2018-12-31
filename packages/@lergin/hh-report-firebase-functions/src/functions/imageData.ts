@@ -8,7 +8,7 @@ import * as mkdirp from 'mkdirp-promise'
 import fetch from 'node-fetch'
 import { tmpdir } from 'os'
 import { basename, dirname, join, normalize } from 'path'
-import { ImageData, ParkingPlaces } from 'hh-report-common'
+import { ImageData, ParkingPlaces } from '@lergin/hh-report-common'
 
 const gcs = new Storage({
   keyFilename:

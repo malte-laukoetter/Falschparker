@@ -17,4 +17,4 @@
 
 npm i -g install-local
 
-install-local ..\hh-report-common\
+install-local ..\@lergin\hh-report-common\
