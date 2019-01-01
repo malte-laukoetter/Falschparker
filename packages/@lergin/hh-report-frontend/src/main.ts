@@ -13,7 +13,7 @@ const firebaseApp = initializeApp({
   authDomain: 'hh-anzeigen-bussgeldstelle.firebaseapp.com',
   databaseURL: 'https://hh-anzeigen-bussgeldstelle.firebaseio.com',
   projectId: 'hh-anzeigen-bussgeldstelle',
-  storageBucket: 'hh-anzeigen-bussgeldstelle.appspot.com',
+  storageBucket: 'falschparker',
   messagingSenderId: '418563000081'
 })
 
