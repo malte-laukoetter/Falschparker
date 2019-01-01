@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "build_frontend": "cd packages/@lergin/hh-report-frontend && npm run build && cd ../../.."
+  },
   "devDependencies": {
     "lerna": "^3.8.0"
   }

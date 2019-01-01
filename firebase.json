@@ -13,7 +13,7 @@
     ]
   },
   "hosting": {
-    "predeploy": "npm --prefix packages/@lergin/hh-report-frontend run build",
+    "predeploy": "npm run build_frontend",
     "public": "packages/@lergin/hh-report-frontend/dist",
     "ignore": [
       "firebase.json",
@@ -27,7 +27,14 @@
       }
     ]
   },
-  "storage": {
-    "rules": "storage.rules"
-  }
+  "storage": [
+    {
+      "target": "main",
+      "rules": "storage.rules"
+    },
+    {
+      "target": "falschparker",
+      "rules": "storage.rules"
+    }
+  ]
 }

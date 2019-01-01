@@ -20,10 +20,6 @@ export default class Upload extends Vue {
       this.$router.push('/login')
     }
 
-    const metadata = {
-      contentType: file.type
-    }
-
     // Save the image on Cloud Storage.
     const filePath = file.name
 
@@ -31,6 +27,13 @@ export default class Upload extends Vue {
       const user = auth().currentUser
 
       if (!user) return
+
+      const metadata: storage.UploadMetadata = {
+        contentType: file.type,
+        customMetadata: {
+          user: user.uid
+        }
+      }
 
       const snapshot = await storage().ref('images').child(user.uid).child(filePath).put(file, metadata)
       console.log('Uploaded', snapshot.totalBytes, 'bytes.')

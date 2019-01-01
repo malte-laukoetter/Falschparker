@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "hh-anzeigen-bussgeldstelle"
+  },
+  "targets": {
+    "hh-anzeigen-bussgeldstelle": {
+      "storage": {
+        "falschparker": [
+          "falschparker"
+        ],
+        "main": [
+          "hh-anzeigen-bussgeldstelle.appspot.com"
+        ]
+      }
+    }
   }
 }

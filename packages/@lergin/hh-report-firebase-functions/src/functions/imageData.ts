@@ -121,6 +121,12 @@ async function createThumbnail (object: storageFunctions.ObjectMetadata) {
 
 export const imageData = storageFunctions.bucket('falschparker').object().onFinalize(async (object, context) => {
   const filePath = object.name
+
+  // Exit if the file was manually moved.
+  if (!object.metadata || !object.metadata.user) {
+    return console.log('Non user upload.')
+  }
+
   // Exit if this is triggered on a file that is not an image.
   if (!object.contentType.startsWith('image/')) {
     return console.log('This is not an image.')
@@ -131,11 +137,6 @@ export const imageData = storageFunctions.bucket('falschparker').object().onFina
     return console.log('This is a thumbnail.')
   }
 
-  // Exit if the file was manually moved.
-  if (context.authType !== "USER") {
-    return console.log('Non user upload.')
-  }
-
   // Get file from bucket.
   const bucket = gcs.bucket(object.bucket)
   const file = bucket.file(filePath)
@@ -144,7 +145,7 @@ export const imageData = storageFunctions.bucket('falschparker').object().onFina
   const data = await createImageData(file)
 
   // Store information in database.
-  const ref = database().ref('users').child(context.auth.uid).child('images').push()
+  const ref = database().ref('users').child(object.metadata.user).child('images').push()
   ref.set({ ...data, filePath })
 
   // Create thumbnail.
