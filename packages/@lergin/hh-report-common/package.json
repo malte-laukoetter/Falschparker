@@ -5,7 +5,8 @@
   "types": "./lib/main.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm build"
   },
   "author": "",
   "license": "MIT",
