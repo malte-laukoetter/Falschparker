@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "lib": ["esnext"],
-    "module": "commonjs",
+    "module": "esnext",
     "noImplicitReturns": true,
-    "outDir": "dist/cjs",
+    "outDir": "dist/esm",
     "sourceMap": false,
-    "target": "es2017"
+    "target": "es2017",
+    "declaration": true,
+    "declarationDir": "dist/types"
   },
   "compileOnSave": true,
   "include": [
