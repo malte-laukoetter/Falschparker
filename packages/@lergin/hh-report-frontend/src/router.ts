@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { auth } from 'firebase'
 
 Vue.use(Router)
 
@@ -10,21 +11,48 @@ export default new Router({
     {
       path: '/send',
       name: 'Send',
+      beforeEnter: (to, from, next) => {
+        if (auth().currentUser) {
+          next()
+        } else {
+          next('/login')
+        }
+      },
       component: () => import(/* webpackChunkName: "send" */ './views/Send.vue')
     },
     {
       path: '/upload',
       name: 'Upload',
+      beforeEnter: (to, from, next) => {
+        if (auth().currentUser) {
+          next()
+        } else {
+          next('/login')
+        }
+      },
       component: () => import(/* webpackChunkName: "upload" */ './views/Upload.vue')
     },
     {
       path: '/login',
       name: 'Login',
+      beforeEnter: (to, from, next) => {
+        if(auth().currentUser) {
+          next(false)
+        } else {
+          next()
+        }
+      },
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
     },
     {
       path: '*',
-      redirect: '/login'
+      beforeEnter: (to, from, next) => {
+        if (auth().currentUser) {
+          next('/upload')
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })

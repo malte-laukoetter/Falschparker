@@ -8,6 +8,7 @@
        <v-toolbar-items>
         <v-btn flat @click="() => $router.push('/send')">Send</v-btn>
         <v-btn flat @click="() => $router.push('/upload')">Upload</v-btn>
+        <v-btn flat @click="logout()">Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -17,12 +18,13 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data () {
-    return {
-      //
-    }
+import { auth } from 'firebase'
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class App extends Vue {
+  logout () {
+    auth().signOut()
   }
 }
 </script>

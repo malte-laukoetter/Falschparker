@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import './plugins/vuetify'
+import { initializeApp, auth } from 'firebase'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import VueFire from 'vuefire'
 import * as VueGoogleMaps from 'vue2-google-maps'
-import { initializeApp, auth } from 'firebase'
 
 const firebaseApp = initializeApp({
   apiKey: 'AIzaSyDmV-0vZTZ8Jo6hcjE8-tqm5g3JxDO6Qm4',

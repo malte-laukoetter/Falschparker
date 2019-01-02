@@ -18,8 +18,3 @@
 npm i -g install-local
 
 install-local ..\@lergin\hh-report-common\
-
-
-*[] Logout
-*[] Get UserId from upload context.auth doesn't help
-*[] Fix send page in build setup

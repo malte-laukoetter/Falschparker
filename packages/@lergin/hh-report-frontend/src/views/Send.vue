@@ -126,7 +126,7 @@ type FirebaseImageData = ImageData & {'.key': string}
     const user = auth().currentUser
 
     return {
-      items: db.ref('users').child(user ? user.uid : '').child('images')
+      items: db.ref('users').child(user ? user.uid : 'no-user').child('images')
     }
   }
 })
