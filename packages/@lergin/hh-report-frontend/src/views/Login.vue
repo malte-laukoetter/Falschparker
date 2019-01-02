@@ -12,7 +12,9 @@
 /// <reference path="../../node_modules/@types/gapi.auth2/index.d.ts" />
 
 import { Component, Vue } from 'vue-property-decorator'
-import { database, auth } from 'firebase'
+import { auth, database } from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
 import * as uuid from 'uuid/v1'
 import firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'

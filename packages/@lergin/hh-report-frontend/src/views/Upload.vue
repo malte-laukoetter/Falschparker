@@ -10,7 +10,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { storage, auth } from 'firebase'
+import { auth, storage } from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/storage'
 import * as uuid from 'uuid/v1'
 
 @Component

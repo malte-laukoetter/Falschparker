@@ -114,7 +114,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { database, auth } from 'firebase'
+import { auth, database } from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
 import { ImageData, ParkingPlaces } from '@lergin/hh-report-common'
 import '../vuefire'
 

@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { auth } from 'firebase'
+import { auth } from 'firebase/app'
+import 'firebase/auth'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component

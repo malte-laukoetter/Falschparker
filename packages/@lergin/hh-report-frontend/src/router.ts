@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { auth } from 'firebase'
+import { auth } from 'firebase/app'
+import 'firebase/auth'
 
 Vue.use(Router)
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './plugins/vuetify'
-import { initializeApp, auth } from 'firebase'
+import { initializeApp, auth } from 'firebase/app'
+import 'firebase/auth'
 import App from './App.vue'
 import router from './router'
 import store from './store'
