@@ -19,5 +19,5 @@ Vue.use(Vuetify, {
   lang: {
     locales: { de },
     current: 'de'
-  },
+  }
 })

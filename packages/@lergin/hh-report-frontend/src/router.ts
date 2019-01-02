@@ -37,7 +37,7 @@ export default new Router({
       path: '/login',
       name: 'Login',
       beforeEnter: (to, from, next) => {
-        if(auth().currentUser) {
+        if (auth().currentUser) {
           next(false)
         } else {
           next()
