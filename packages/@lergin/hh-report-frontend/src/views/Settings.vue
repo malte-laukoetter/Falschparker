@@ -36,15 +36,11 @@
 </template>
 
 <script lang="ts">
-
 import { Component, Vue } from 'vue-property-decorator'
 import { auth, database } from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-import * as uuid from 'uuid/v1'
-import firebaseui from 'firebaseui'
-import 'firebaseui/dist/firebaseui.css'
-
+import '../vuefire'
 
 @Component({
   firebase () {
@@ -68,9 +64,9 @@ import 'firebaseui/dist/firebaseui.css'
   }
 })
 export default class Settings extends Vue {
-  private name: { '.value': string, '.key': string }
-  private address: { '.value': string, '.key': string }
-  private mailTo: { '.value': string, '.key': string }
+  private name: { '.value': string, '.key': string } = { '.value': '', '.key': '' }
+  private address: { '.value': string, '.key': string } = { '.value': '', '.key': '' }
+  private mailTo: { '.value': string, '.key': string } = { '.value': '', '.key': '' }
 
   saveName() {
     return this.$firebaseRefs.name.set(this.name['.value']);

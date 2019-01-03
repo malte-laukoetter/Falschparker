@@ -16,7 +16,12 @@ declare module 'vue/types/vue' {
   }
 }
 
-type VueFirebaseObject = Record<string, database.Reference>
+type VueFirebaseObject = {
+  [key: string]: database.Reference | {
+    source: database.Reference,
+    asObject: boolean
+  }
+}
 
 type FirebaseOption<V> = VueFirebaseObject | ((this: V) => VueFirebaseObject)
 
