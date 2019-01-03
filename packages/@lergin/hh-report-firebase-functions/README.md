@@ -18,3 +18,6 @@
 npm i -g install-local
 
 install-local ..\@lergin\hh-report-common\
+
+*[] Change redircet uri to domain
+*[] Set metadata for thumbnails

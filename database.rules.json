@@ -37,7 +37,7 @@
             },
             "send": {
               ".write": "$uid === auth.uid && newData.exists()",
-              ".validate": "data.isBoolean() && data.val() === false && newData.isBoolean() && newData.val() === true"
+              ".validate": "((data.isBoolean() && data.val() === false) || !data.exists()) && newData.isBoolean() && newData.val() === true"
             },
             "where": {
               ".write": "$uid === auth.uid",
