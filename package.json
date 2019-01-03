@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build_frontend": "cd packages/@lergin/hh-report-frontend && npm run build && cd ../../.."
+    "build_frontend": "cd packages/@lergin/hh-report-frontend && npm run build && cd ../../..",
+    "deploy_hosting": "for /F \"usebackq delims=\" %A in (`git log -1 --oneline`) do firebase deploy --only hosting --message \"%A\""
   },
   "devDependencies": {
     "lerna": "^3.8.0"
