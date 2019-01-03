@@ -10,9 +10,13 @@
             ".read": "$uid === auth.uid"
           },
           "code": {
-            ".write": "$uid === auth.uid"            
+            ".write": "$uid === auth.uid"
           },
           "name": {
+            ".write": "$uid === auth.uid",
+            ".read": "$uid === auth.uid"
+          },
+          "address": {
             ".write": "$uid === auth.uid",
             ".read": "$uid === auth.uid"
           }

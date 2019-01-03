@@ -34,6 +34,18 @@ export default new Router({
       component: () => import(/* webpackChunkName: "upload" */ './views/Upload.vue')
     },
     {
+      path: '/settings',
+      name: 'Settings',
+      beforeEnter: (to, from, next) => {
+        if (auth().currentUser) {
+          next()
+        } else {
+          next('/login')
+        }
+      },
+      component: () => import(/* webpackChunkName: "settings" */ './views/Settings.vue')
+    },
+    {
       path: '/login',
       name: 'Login',
       beforeEnter: (to, from, next) => {
