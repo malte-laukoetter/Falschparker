@@ -22,14 +22,14 @@
         ></v-text-field>
       </v-flex>
       <v-flex xs12>
-        <v-text-field
+        <v-combobox
           slot="input"
           v-model="mailTo['.value']"
           @change="() => saveMailTo()"
-          hint="Mail Addresse der Bußgeldstelle"
-          persistent-hint
+          label="Mail Addresse der Bußgeldstelle"
           single-line
-        ></v-text-field>
+          :items="['anzeigenbussgeldstelle@eza.hamburg.de', 'test@lergin.de']"
+        ></v-combobox>
       </v-flex>
     </v-layout>
   </v-container>
