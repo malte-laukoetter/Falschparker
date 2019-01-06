@@ -2,7 +2,7 @@ import { Storage, File } from '@google-cloud/storage'
 import { spawn } from 'child-process-promise'
 import * as ExifParser from 'exif-parser'
 import { database } from 'firebase-admin'
-import { config, storage as storageFunctions } from 'firebase-functions'
+import * as functions from 'firebase-functions'
 import { unlinkSync } from 'fs'
 import * as mkdirp from 'mkdirp-promise'
 import fetch from 'node-fetch'
@@ -49,7 +49,7 @@ function parseExifData (fileBuffer: Buffer): ImageData {
 }
 
 async function getPlate (url: string): Promise<string> {
-  const plateRecognitionResult = await fetch(`https://api.openalpr.com/v2/recognize_url?&country=eu&secret_key=${config().openalpr.secret_key}&image_url=${encodeURIComponent(url)}`, { method: 'POST' }).then(res => res.json())
+  const plateRecognitionResult = await fetch(`https://api.openalpr.com/v2/recognize_url?&country=eu&secret_key=${functions.config().openalpr.secret_key}&image_url=${encodeURIComponent(url)}`, { method: 'POST' }).then(res => res.json())
   const plate = plateRecognitionResult ? plateRecognitionResult.results ? plateRecognitionResult.results[0] ? plateRecognitionResult.results[0].plate || '' : '' : '' : ''
   return formatPlate(plate)
 }
@@ -73,7 +73,7 @@ async function getFileUrl (file: File, expires: number) {
   return (await file.getSignedUrl({ action: 'read', expires: expires }))[0]
 }
 
-async function createThumbnail (object: storageFunctions.ObjectMetadata) {
+async function createThumbnail (object: functions.storage.ObjectMetadata) {
   const filePath = object.name
   const fileName = basename(filePath)
 
@@ -119,7 +119,10 @@ async function createThumbnail (object: storageFunctions.ObjectMetadata) {
   return thumbFile
 }
 
-export const imageData = storageFunctions.bucket('falschparker').object().onFinalize(async (object, context) => {
+export const imageData = functions.runWith({
+  timeoutSeconds: 120,
+  memory: "512MB"
+}).region('europe-west1').storage.bucket('falschparker').object().onFinalize(async (object, context) => {
   const filePath = object.name
 
   // Exit if the file was manually moved.

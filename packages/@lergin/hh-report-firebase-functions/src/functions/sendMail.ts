@@ -1,5 +1,5 @@
 import { database, storage } from 'firebase-admin'
-import { config, database as databaseFunctions } from 'firebase-functions'
+import * as functions from 'firebase-functions'
 import fetch from 'node-fetch'
 import * as FormData from 'form-data'
 import { ImageData, ReporterData } from '@lergin/hh-report-common'
@@ -76,8 +76,8 @@ async function getAccessToken (userId: string) {
   const refreshToken = (await database().ref('users').child(userId).child('data').child('refresh_token').once('value')).val()
 
   const formData = new FormData()
-  formData.append('client_id', config().google.auth.client_id)
-  formData.append('client_secret', config().google.auth.client_secret)
+  formData.append('client_id', functions.config().google.auth.client_id)
+  formData.append('client_secret', functions.config().google.auth.client_secret)
   formData.append('refresh_token', refreshToken)
   formData.append('grant_type', 'refresh_token')
 
@@ -89,7 +89,7 @@ async function getAccessToken (userId: string) {
   return accessToken
 }
 
-export const sendMail = databaseFunctions.ref('/users/{userId}/images/{id}/send').onCreate(async (change, context) => {
+export const sendMail = functions.region('europe-west1').database.ref('/users/{userId}/images/{id}/send').onCreate(async (change, context) => {
   const db = database()
   const ref = change.ref.parent
   const imageData: ImageData = (await ref.once('value')).val()
