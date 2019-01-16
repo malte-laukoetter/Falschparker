@@ -11,6 +11,7 @@
        <v-toolbar-items>
         <v-btn flat @click="() => $router.push('/send')">Send</v-btn>
         <v-btn flat @click="() => $router.push('/upload')">Upload</v-btn>
+        <v-btn flat @click="() => $router.push('/map')">Map</v-btn>
         <v-btn flat @click="() => $router.push('/settings')">Einstellungen</v-btn>
         <v-btn flat @click="logout()">Logout</v-btn>
         <v-btn flat @click="dark = !dark">{{dark ? 'Day' : 'Night'}}</v-btn>

@@ -68,16 +68,16 @@ export default class Settings extends Vue {
   private address: { '.value': string, '.key': string } = { '.value': '', '.key': '' }
   private mailTo: { '.value': string, '.key': string } = { '.value': '', '.key': '' }
 
-  saveName() {
-    return this.$firebaseRefs.name.set(this.name['.value']);
+  saveName () {
+    return this.$firebaseRefs.name.set(this.name['.value'])
   }
 
-  saveAddress() {
-    return this.$firebaseRefs.address.set(this.address['.value']);
+  saveAddress () {
+    return this.$firebaseRefs.address.set(this.address['.value'])
   }
 
-  saveMailTo() {
-    return this.$firebaseRefs.mailTo.set(this.mailTo['.value']);
+  saveMailTo () {
+    return this.$firebaseRefs.mailTo.set(this.mailTo['.value'])
   }
 }
 </script>

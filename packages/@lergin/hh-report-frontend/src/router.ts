@@ -46,6 +46,18 @@ export default new Router({
       component: () => import(/* webpackChunkName: "settings" */ './views/Settings.vue')
     },
     {
+      path: '/map',
+      name: 'Map',
+      beforeEnter: (to, from, next) => {
+        if (auth().currentUser) {
+          next()
+        } else {
+          next('/login')
+        }
+      },
+      component: () => import(/* webpackChunkName: "map" */ './views/Map.vue')
+    },
+    {
       path: '/login',
       name: 'Login',
       beforeEnter: (to, from, next) => {
