@@ -62,7 +62,8 @@
             "intendReason": {
               ".write": "$uid === auth.uid",
               ".validate": "newData.isString()"
-            }
+            },
+            ".write": "data.exists() && !newData.exists() && $uid === auth.uid"
           },
           ".read": "$uid === auth.uid"
         }
