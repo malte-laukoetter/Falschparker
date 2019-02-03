@@ -1,24 +1,28 @@
 <template>
   <l-map ref="map" :max-zoom="17" :min-zoom="2">
     <l-tile-layer v-bind="tileProvider"></l-tile-layer>
-    <l-marker v-for="item in items" :key="item['.key']" :lat-lng="[item.loc.lat, item.loc.lon]" :title="item.kfz">
-      <l-popup>
-        <v-img :src="item.thumbnail" contain width="100px"></v-img>
-      </l-popup>
-    </l-marker>
+    <v-marker-cluster :options="{ disableClusteringAtZoom: 17 }">
+      <l-marker v-for="item in items" :key="item['.key']" :lat-lng="[item.loc.lat, item.loc.lon]" :title="item.kfz">
+        <l-popup>
+          <v-img :src="item.thumbnail" contain width="100px"></v-img>
+        </l-popup>
+      </l-marker>
+    </v-marker-cluster>
   </l-map>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { LMap, LTileLayer, LMarker, LTooltip, LPopup } from 'vue2-leaflet'
+import { L, LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
+import Vue2LeafletMarkercluster from 'vue2-leaflet-markercluster'
 import { auth, database } from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import { ImageData, ParkingPlaces } from '@lergin/hh-report-common'
 import '../vuefire'
 import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 
 type FirebaseImageData = ImageData & { '.key': string }
 
@@ -62,7 +66,8 @@ const openStreetMapTileProvider: {readonly [K in OpenStreetMapTileProviderKey]: 
     LMap,
     LTileLayer,
     LMarker,
-    LPopup
+    LPopup,
+    'v-marker-cluster': Vue2LeafletMarkercluster
   },
   firebase () {
     const db = database()
@@ -75,11 +80,11 @@ const openStreetMapTileProvider: {readonly [K in OpenStreetMapTileProviderKey]: 
         readyCallback: (e: firebase.database.DataSnapshot) => {
           const data: {[key: string]: ImageData} = e.val()
 
-          const latLons = Object.values(data).map(({ loc }) => loc ? L.latLng(loc.lat, loc.lon) : undefined)
-          const bound = L.latLngBounds(latLons)
+          const latLons: L.LatLngBoundsExpression =
+           Object.values(data).map((data) => data.loc).filter((loc): loc is {lat: number, lon: number} => !!(loc && loc.lat && loc.lon)).map(({ lat, lon }) => [lat, lon] as [number, number])
 
           const map: L.Map = ((this as MapView).$refs.map as any).mapObject
-          map.fitBounds(bound)
+          map.fitBounds(latLons)
         }
       }
     }
