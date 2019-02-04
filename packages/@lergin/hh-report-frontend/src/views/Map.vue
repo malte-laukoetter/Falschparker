@@ -2,9 +2,13 @@
   <l-map ref="map" :max-zoom="17" :min-zoom="2">
     <l-tile-layer v-bind="tileProvider"></l-tile-layer>
     <v-marker-cluster :options="{ disableClusteringAtZoom: 17 }">
-      <l-marker v-for="item in items" :key="item['.key']" :lat-lng="[item.loc.lat, item.loc.lon]" :title="item.kfz">
+      <l-marker
+      v-for="item in items"
+      :key="item['.key']"
+      :lat-lng="[item.loc.lat, item.loc.lon]"
+      :title="item.kfz">
         <l-popup>
-          <v-img :src="item.thumbnail" contain width="100px"></v-img>
+          <v-img :src="item.thumbnail" :lazy-src="require('../../public/img/placeholder_car_grey.jpg')" contain width="100px"></v-img>
         </l-popup>
       </l-marker>
     </v-marker-cluster>
