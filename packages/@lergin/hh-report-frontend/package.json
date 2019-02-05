@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build_netlify": "vue-cli-service build",
     "build": "npm run install_common && vue-cli-service build",
     "lint": "vue-cli-service lint",
     "install_common": "install-local ../hh-report-common"
