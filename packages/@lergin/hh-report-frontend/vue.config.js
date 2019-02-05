@@ -2,6 +2,7 @@ module.exports = {
   pwa: {
     name: 'Falschparker',
     workboxOptions: {
+      navigateFallback: '/',
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/storage\.googleapis\.com\/.*thumb/,
