@@ -2,10 +2,8 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { mixins} from 'vue-class-component'
 import { Bar, mixins as chartjsMixins } from 'vue-chartjs'
-import { ChartOptions, ChartData, TimeScale, Chart } from 'chart.js'
+import { ChartOptions, ChartData, TimeScale } from 'chart.js'
 import merge from 'lodash/merge'
-
-Chart.defaults.global
 
 @Component
 export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, Bar) {
