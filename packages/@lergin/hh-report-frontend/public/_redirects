@@ -1,0 +1,4 @@
+/*    /index.html   200
+
+# Redirect default Netlify subdomain to primary domain
+http://stupefied-roentgen-3b060c.netlify.com/* http://falschparker.lergin.de/:splat 301!
