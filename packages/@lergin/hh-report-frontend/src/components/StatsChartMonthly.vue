@@ -2,7 +2,10 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { mixins} from 'vue-class-component'
 import { Bar, mixins as chartjsMixins } from 'vue-chartjs'
-import { ChartOptions, ChartData, TimeScale } from 'chart.js'
+import { ChartOptions, ChartData, TimeScale, Chart } from 'chart.js'
+import merge from 'lodash/merge'
+
+Chart.defaults.global
 
 @Component
 export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, Bar) {
@@ -11,27 +14,30 @@ export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, B
   public get options(): ChartOptions {
     let options: ChartOptions = {
         responsive: true,
-        maintainAspectRatio: false
-    }
-
-    if ((this as any).$vuetify.dark) {
-      options = {
-        ... options,
+        maintainAspectRatio: false,
         legend: {
-          display: false,
-          labels: {
-            fontColor: 'white'
-          }
-        },
-        tooltips: {
-          enabled: true
+          display: false
         },
         scales: {
           xAxes: [{
             type: 'time',
             offset: true,
             distribution: 'linear',
+            display: true
+          }],
+          yAxes: [{
             display: true,
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+    }
+
+    if ((this as any).$vuetify.dark) {
+      options = merge(options, {
+        scales: {
+          xAxes: [{
             gridLines: {
               color: 'rgba(255, 255, 255, 0.2)'
             },
@@ -43,7 +49,6 @@ export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, B
             }
           }],
           yAxes: [{
-            display: true,
             gridLines: {
               color: 'rgba(255, 255, 255, 0.2)'
             },
@@ -51,12 +56,11 @@ export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, B
               fontColor: 'white'
             },
             ticks: {
-              beginAtZero: true,
               fontColor: 'white'
             }
           }]
         }
-      }
+      })
     }
     
     return options;
