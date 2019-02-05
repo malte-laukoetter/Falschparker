@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "npm run install_common && vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "install_common": "install-local ..\\hh-report-common"
+    "install_common": "install-local ../hh-report-common"
   },
   "dependencies": {
     "@lergin/hh-report-common": "^1.0.4",
