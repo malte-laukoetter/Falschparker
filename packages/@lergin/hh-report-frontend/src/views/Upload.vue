@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <input type="file" multiple name="demo-file" accept="image/*" @change="handleFileSelect"/>
+        <input type="file" multiple accept="image/*" @change="handleFileSelect"/>
       </v-layout>
     </v-slide-y-transition>
   </v-container>

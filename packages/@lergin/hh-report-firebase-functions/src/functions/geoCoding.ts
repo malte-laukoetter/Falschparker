@@ -1,4 +1,4 @@
-import { database as databaseFunctions, config } from 'firebase-functions'
+import { database as databaseFunctions, config, Change } from 'firebase-functions'
 import * as nodeGeocoder from 'node-geocoder'
 
 const geocoder = nodeGeocoder({
@@ -7,19 +7,27 @@ const geocoder = nodeGeocoder({
   apiKey: config().geocoder.api_key
 })
 
+
+function isLocationChanged({after, before}: Change<databaseFunctions.DataSnapshot>) {
+  const newLon = after.child('lon').val()
+  const newLat = after.child('lat').val()
+  const oldLon = before.child('lon').val()
+  const oldLat = before.child('lat').val()
+
+  return newLon && newLat && (newLon !== oldLon ||newLat !== oldLat)
+}
+
 export const geoCoding = databaseFunctions.ref('/users/{userId}/images/{id}/loc').onWrite(async (change, context) => {
-  const newLon = change.after.child('lon').val()
-  const newLat = change.after.child('lat').val()
-  if (
-    newLon &&
-    newLat &&
-    (newLon !== change.before.child('lon').val() ||
-      newLat !== change.before.child('lat').val())
-  ) {
+  if (isLocationChanged(change)) {
+    const newLon = change.after.child('lon').val()
+    const newLat = change.after.child('lat').val()
+
     const [
       { formattedAddress: address }
     ] = await geocoder.reverse({ lat: newLat, lon: newLon })
+
     console.log(`Lat ${newLat}, Lon ${newLon} -> ${address}`)
+
     change.after.ref.parent.child('address').set(address)
   }
 })

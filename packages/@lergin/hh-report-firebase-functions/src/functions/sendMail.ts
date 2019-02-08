@@ -58,7 +58,7 @@ ${fileBase64}
 --92ckNGfS--`
 }
 
-function convertDecimalLocationToStr (value): string {
+function convertDecimalLocationToStr (value: number): string {
   const sign = value < 0 ? -1 : 1
 
   const abs = Math.abs(Math.round(value * 1000000))

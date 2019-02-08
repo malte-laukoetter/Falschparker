@@ -1,0 +1,17 @@
+{
+  "geocoder": {
+    "provider": "google",
+    "language": "de-DE",
+    "api_key": "xxx"
+  },
+  "google": {
+    "auth": {
+      "client_id": "xxx.apps.googleusercontent.com",
+      "client_secret": "xxx",
+      "redirect_uri": "http://localhost:8080"
+    }
+  },
+  "openalpr": {
+    "secret_key": "sk_xxx"
+  }
+}

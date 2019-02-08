@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <button id="signinButton" @click="login()">Sign in with Google</button>
+        <button id="signinButton" @click="login()">Registrieren mit Google</button>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
