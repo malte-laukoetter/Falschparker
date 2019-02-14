@@ -1,6 +1,6 @@
 {
   "name": "@lergin/hh-report-frontend",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +10,7 @@
     "install_common": "install-local ../hh-report-common"
   },
   "dependencies": {
-    "@lergin/hh-report-common": "^1.0.5",
+    "@lergin/hh-report-common": "^1.0.6",
     "@types/chart.js": "^2.7.42",
     "@types/gapi": "0.0.36",
     "@types/gapi.auth2": "0.0.48",
