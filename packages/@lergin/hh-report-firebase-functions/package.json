@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^2.3.1",
-    "@lergin/hh-report-common": "^1.0.4",
+    "@lergin/hh-report-common": "^1.0.5",
     "@types/form-data": "^2.2.1",
     "@types/node-fetch": "^2.1.4",
     "@types/node-geocoder": "^3.19.0",
@@ -48,5 +48,5 @@
     ]
   },
   "private": true,
-  "version": "1.0.4"
+  "version": "1.0.5"
 }
