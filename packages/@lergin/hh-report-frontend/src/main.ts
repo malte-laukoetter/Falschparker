@@ -8,6 +8,7 @@ import store from './store'
 import './registerServiceWorker'
 import VueFire from 'vuefire'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import { uploadImage } from './uploadImage';
 
 const firebaseApp = initializeApp({
   apiKey: 'AIzaSyDmV-0vZTZ8Jo6hcjE8-tqm5g3JxDO6Qm4',
@@ -40,3 +41,12 @@ auth().onAuthStateChanged(user => {
     router.push('/login')
   }
 })
+
+navigator.serviceWorker.onmessage = (event) => {
+  console.log(event)
+  const imageBlob = event.data.file as File
+
+  console.log(imageBlob)
+
+  uploadImage(imageBlob)
+}

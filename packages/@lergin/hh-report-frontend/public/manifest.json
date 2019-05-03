@@ -13,6 +13,21 @@
       "type": "image/png"
     }
   ],
+  "share_target": {
+    "action": "/share/image/",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "file",
+          "accept": [
+            "image/*"
+          ]
+        }
+      ]
+    }
+  },
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#212121",
