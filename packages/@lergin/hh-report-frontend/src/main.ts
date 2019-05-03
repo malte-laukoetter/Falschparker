@@ -42,11 +42,19 @@ auth().onAuthStateChanged(user => {
   }
 })
 
-navigator.serviceWorker.onmessage = (event) => {
+navigator.serviceWorker.addEventListener("message", event => {
   console.log(event)
   const imageBlob = event.data.file as File
 
   console.log(imageBlob)
-
-  uploadImage(imageBlob)
-}
+  if (auth().currentUser) {
+    uploadImage(imageBlob)
+  } else {
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      if (user) {
+        uploadImage(imageBlob)
+        unsubscribe()
+      }
+    })
+  }
+})
