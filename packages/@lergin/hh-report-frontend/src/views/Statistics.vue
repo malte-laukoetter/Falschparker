@@ -6,7 +6,7 @@
         <v-card>
           <v-card-title><h4>Mehrfach Angezeigt</h4></v-card-title>
           <v-divider></v-divider>
-          <v-list dense>
+          <v-list dense style="max-height: 408px; overflow: auto;">
             <v-list-tile
               @click="() => null"
               v-for="plate in mostReportedPlates"
@@ -175,7 +175,7 @@ export default class Statistics extends Vue {
   }
 
   get mostReportedPlates () {
-    return this.plateAmounts.sort((a, b) => b.amount - a.amount).slice(0, 10)
+    return this.plateAmounts.filter(({amount}) => amount > 1).sort((a, b) => b.amount - a.amount)
   }
 }
 </script>
