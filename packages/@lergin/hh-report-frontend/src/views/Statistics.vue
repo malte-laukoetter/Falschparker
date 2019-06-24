@@ -175,7 +175,7 @@ export default class Statistics extends Vue {
   }
 
   get mostReportedPlates () {
-    return this.plateAmounts.sort((a, b) => b.amount - a.amount).slice(0, 9)
+    return this.plateAmounts.sort((a, b) => b.amount - a.amount).slice(0, 10)
   }
 }
 </script>
