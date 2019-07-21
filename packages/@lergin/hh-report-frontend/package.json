@@ -22,7 +22,7 @@
     "firebase": "^5.8.2",
     "firebaseui": "^3.5.2",
     "leaflet": "^1.4.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "luxon": "^1.11.0",
     "register-service-worker": "^1.5.2",
     "terser": "^3.14.1",
