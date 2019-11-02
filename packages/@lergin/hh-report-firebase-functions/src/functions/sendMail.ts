@@ -3,6 +3,7 @@ import * as functions from 'firebase-functions'
 import fetch from 'node-fetch'
 import * as FormData from 'form-data'
 import { ImageData, ReporterData } from '@lergin/hh-report-common'
+import * as Intl from 'intl'
 
 type MailTemplateOptions = ImageData & {
   mailTo: string;
@@ -42,8 +43,12 @@ Content-Type: multipart/mixed;boundary=92ckNGfS
 --92ckNGfS
 Content-Type: text/plain;charset=utf-8
 
-Tattag: ${date.toLocaleDateString('de-DE')}
-Tatzeit: ${date.toLocaleTimeString('de-DE').substr(0, 5)}
+Sehr geehrte Damen und Herren,
+
+hiermit zeige ich folgende Verkehrsordnungswidrigkeit an:
+
+Tattag: ${new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(date)}
+Tatzeit: ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date)}
 Tatort: ${address} (${convertDecimalLocationToStr(lat)}N ${convertDecimalLocationToStr(lon)}E)
 Kfz-Kennzeichen: ${plate}
 genauer Tatvorwurf: Unzulässiges ${parking ? 'Parken' : 'Halten'} (${where})${endangering ? ' mit Gefährdung' : ''}${endangering && intend ? ' und' : ''}${intend ? ` mit Vorsatz (${intendReason.trim()})` : ''}
