@@ -8,7 +8,6 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import VueFire from 'vuefire'
-import * as VueGoogleMaps from 'vue2-google-maps'
 import { uploadImage } from './uploadImage';
 
 const firebaseApp = initializeApp({
@@ -23,11 +22,6 @@ const firebaseApp = initializeApp({
 Vue.config.productionTip = false
 
 Vue.use(VueFire)
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyDmCabMyWQoBlfdN99Sik4CgS7WMqHEk0A'
-  }
-})
 
 auth().onAuthStateChanged(user => {
   new Vue({
