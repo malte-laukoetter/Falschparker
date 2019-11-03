@@ -2,7 +2,13 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <input type="file" multiple accept="image/*" @change="handleFileSelect"/>
+        <v-alert style="width: 100%" type="success" v-if="files.length === progress && files.length > 0">
+          Images uploaded
+        </v-alert>
+
+        <v-progress-linear class="mb-3" v-if="files.length > 0 && files.length !== progress" :indeterminate="progress === 0" :value="progress / files.length * 100"></v-progress-linear>
+
+        <v-file-input solo chips v-model="files" style="width: 100%" show-size multiple label="Image upload" accept="image/*" @change="handleFileSelect"></v-file-input>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -16,23 +22,23 @@ import { uploadImage } from '../uploadImage'
 
 @Component
 export default class Upload extends Vue {
+  private files: File[] = []
+  private progress: number = 0
+
   async handleFileSelect (e: Event) {
-    e.stopPropagation()
-    e.preventDefault()
-
-    if (!(e.target instanceof HTMLInputElement)) return
-
-    const files = e.target.files
-
-    if (files === null) return
+    if (this.files === null) return
 
     if (!auth().currentUser) {
       this.$router.push('/login')
       return
     }
 
-    for (let i = 0; i < files.length; i++) {
-      uploadImage(files[i])
+    this.progress = 0
+
+    for (let i = 0; i < this.files.length; i++) {
+      uploadImage(this.files[i]).then(() => {
+        this.progress++;
+      })
     }
   }
 }
