@@ -7,14 +7,14 @@
           <v-card-title><h4>Mehrfach Angezeigt</h4></v-card-title>
           <v-divider></v-divider>
           <v-list dense style="max-height: 408px; overflow: auto;">
-            <v-list-tile
+            <v-list-item
               @click="() => null"
               v-for="plate in mostReportedPlates"
               :key="plate.plate"
             >
-              <v-list-tile-content>{{plate.plate}}</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{plate.amount}}</v-list-tile-content>
-            </v-list-tile>
+              <v-list-item-content>{{plate.plate}}</v-list-item-content>
+              <v-list-item-content class="align-end">{{plate.amount}}</v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-card>
       </v-flex>
@@ -42,14 +42,14 @@
           <v-card-title><h4>Anzeigen / Wochentag</h4></v-card-title>
           <v-divider></v-divider>
           <v-list dense>
-            <v-list-tile
+            <v-list-item
               @click="() => null"
               v-for="(amount, weekday) in weekdayAmounts"
               :key="weekday"
             >
-              <v-list-tile-content>{{weekdays[weekday]}}</v-list-tile-content>
-              <v-list-tile-content class="align-end">{{amount}}</v-list-tile-content>
-            </v-list-tile>
+              <v-list-item-content>{{weekdays[weekday]}}</v-list-item-content>
+              <v-list-item-content class="align-end">{{amount}}</v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-card>
       </v-flex>

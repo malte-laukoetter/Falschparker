@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import './plugins/vuetify'
+import vuetify from './plugins/vuetify'
 import { initializeApp, auth } from 'firebase/app'
 import 'firebase/auth'
 import App from './App.vue'
@@ -30,10 +31,11 @@ Vue.use(VueGoogleMaps, {
 
 auth().onAuthStateChanged(user => {
   new Vue({
+    vuetify,
     router,
     store,
-    render: h => h(App)
-  }).$mount('#app')
+    render: (h: any) => h(App)
+  } as any).$mount('#app')
 
   if (user) {
     console.log('User signed-in.', user)

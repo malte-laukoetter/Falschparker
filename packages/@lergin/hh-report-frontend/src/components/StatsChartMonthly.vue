@@ -32,7 +32,7 @@ export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, B
         }
     }
 
-    if ((this as any).$vuetify.dark) {
+    if ((this as any).$vuetify.theme.dark) {
       options = merge(options, {
         scales: {
           xAxes: [{
