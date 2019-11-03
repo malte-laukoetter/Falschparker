@@ -32,6 +32,7 @@
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.3.0",
     "vue-router": "^3.0.1",
+    "vue2-google-maps": "^0.10.5",
     "vue2-leaflet": "^1.2.3",
     "vue2-leaflet-markercluster": "^2.1.2",
     "vuefire": "^1.4.5",
