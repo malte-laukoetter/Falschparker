@@ -14,11 +14,12 @@
             <tr>
               <td>
                 <v-dialog
-                  v-model="props.item.imageDialog"
                   fullscreen
+                  hide-overlay
+                  open-on-hover
                 >
-                  <template v-slot:activator="{ on }"><v-img @click="on" :src="props.item.thumbnail" contain width="100px"></v-img></template>
-                  <v-img @click="props.item.imageDialog = false" :lazy-src="props.item.thumbnail" :src="props.item.url" max-heigth="100vh"></v-img>
+                  <template v-slot:activator="{ on }"><v-img v-on="on" :src="props.item.thumbnail" contain width="100px"></v-img></template>
+                  <v-img :lazy-src="props.item.thumbnail" :src="props.item.url" max-height="100vh"></v-img>
                 </v-dialog>
               </td>
               <td>{{ new Date(props.item.date * 1000).toLocaleString("de-DE") }}</td>
