@@ -1,3 +1,13 @@
+<style>
+  .leaflet-popup-content {
+    margin: unset;
+  }
+
+  .leaflet-popup-content-wrapper {
+    padding: unset;
+  }
+</style>
+
 <template>
   <l-map ref="map" :max-zoom="17" :min-zoom="2">
     <l-tile-layer v-bind="tileProvider"></l-tile-layer>
@@ -7,8 +17,17 @@
       :key="item['.key']"
       :lat-lng="[item.loc.lat, item.loc.lon]"
       :title="item.kfz">
-        <l-popup>
-          <v-img :src="item.thumbnail" :lazy-src="require('../../public/img/placeholder_car_grey.jpg')" contain width="100px"></v-img>
+        <l-popup :options="{maxWidth: 350, minWidth: 350}">
+          <report-card :license-plate="item.plate"
+              :date="item.date"
+              :location="{lat: item.loc.lat, lon: item.loc.lon}"
+              :parking="item.parking"
+              :endangering="item.endangering"
+              :with-intend="item.intend"
+              :intend-reason="item.intendReason"
+              :offence="item.where"
+              :address="item.address"
+              :images="[{ src: item.url, thumbnail: item.thumbnail }]"></report-card>
         </l-popup>
       </l-marker>
     </v-marker-cluster>
@@ -27,6 +46,8 @@ import '../vuefire'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+
+import ReportCard from '@/components/report-card/ReportCard.vue'
 
 type FirebaseImageData = ImageData & { '.key': string }
 
@@ -71,7 +92,8 @@ const openStreetMapTileProvider: {readonly [K in OpenStreetMapTileProviderKey]: 
     LTileLayer,
     LMarker,
     LPopup,
-    'v-marker-cluster': Vue2LeafletMarkercluster
+    'v-marker-cluster': Vue2LeafletMarkercluster,
+    ReportCard
   },
   firebase () {
     const db = database()
