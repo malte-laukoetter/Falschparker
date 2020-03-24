@@ -4,7 +4,7 @@
   >
     <v-app-bar
       app
-      color="primary"
+      :color="`primary ${dark ? `darken-1` : 'lighten-2'}`"
     >
        <v-toolbar-title>Falschparker</v-toolbar-title>
       <v-spacer></v-spacer>
