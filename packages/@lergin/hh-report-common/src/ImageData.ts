@@ -15,7 +15,8 @@ export type ImageData = {
   url?: string;
   where?: ParkingPlaces;
   endangering?: boolean;
+  obstruction?: boolean;
   parking?: boolean;
   intend?: boolean;
   intendReason?: string;
-}
+};

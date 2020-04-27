@@ -6,7 +6,7 @@
   "browser": "./dist/esm/index.js",
   "module": "./dist/esm/index.esm.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc && tsc -p tsconfig_esm.json",
     "prepublishOnly": "npm run build"
   },
@@ -17,5 +17,19 @@
     "access": "public"
   },
   "version": "1.0.6",
-  "gitHead": "bb80f3f6b1499c3988ff3d73dd5a766ec03fbd9a"
+  "gitHead": "bb80f3f6b1499c3988ff3d73dd5a766ec03fbd9a",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.2.1",
+    "babel-jest": "^25.4.0",
+    "jest": "^25.4.0",
+    "ts-jest": "^25.4.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/intl": "^1.2.0",
+    "intl": "^1.2.5"
+  }
 }
