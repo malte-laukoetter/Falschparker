@@ -56,12 +56,12 @@ describe("dayOfOffence()", () => {
 });
 
 describe("timeOfOffence()", () => {
-  test("2020-04-27 22:43:11", () => {
+  test("2020-04-27 22:43", () => {
     expect(
       timeOfOffence({
         date: 1588020191,
       } as MailTemplateOptions)
-    ).toBe("22:43:11");
+    ).toBe("22:43");
   });
 });
 
@@ -219,7 +219,7 @@ describe("mailContent()", () => {
 hiermit zeige ich folgende Verkehrsordnungswidrigkeit an:
 
 Tattag: Montag, 27. April 2020
-Tatzeit: 22:43:11
+Tatzeit: 22:43
 Tatort: Musterstraße 23, 12345 Musterstadt (53°09'47"N 9°33'41"E)
 Kfz-Kennzeichen: HH AB 20
 genauer Tatvorwurf: Unzulässiges Halten (Geh-/Radweg)
