@@ -51,6 +51,10 @@
               ".write": "$uid === auth.uid",
               ".validate": "newData.isBoolean()"
             },
+            "obstruction": {
+              ".write": "$uid === auth.uid",
+              ".validate": "newData.isBoolean()"
+            },
             "parking": {
               ".write": "$uid === auth.uid",
               ".validate": "newData.isBoolean()"

@@ -76,7 +76,7 @@ export function tatvorwurf({parking, where, endangering, obstruction, intend, in
 
   return `${intend ? `Vorsätzliches, u` : `U`}nzulässiges ${
     parking ? `Parken` : `Halten`
-  } (${where})${modifierText}${intendReason.length > 0 ? `; ${intendReason}`: ``}`;
+  } (${where})${modifierText}${intendReason && intendReason.length > 0 ? `; ${intendReason}`: ``}`;
 }
 
 export function mailContent(options: MailTemplateOptions): string {

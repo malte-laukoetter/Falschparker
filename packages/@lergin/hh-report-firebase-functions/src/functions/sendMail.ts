@@ -39,25 +39,30 @@ export const sendMail = functions.region('europe-west1').database.ref('/users/{u
   const fileBuffer = (await file.download())[0]
 
   try {
+    const mailOptions = {
+      ...imageData,
+      mailTo: reporterData.mailTo,
+      reporterAddress: reporterData.address,
+      reporterName: reporterData.name,
+      fileContentType,
+      fileName,
+      file: fileBuffer,
+    };
+
+    console.log(mailOptions)
     const mail = await fetch(
-      'https://www.googleapis.com/upload/gmail/v1/users/me/messages/send?uploadType=media',
+      "https://www.googleapis.com/upload/gmail/v1/users/me/messages/send?uploadType=media",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${await getAccessToken(context.params.userId)}`,
-          'Content-Type': 'message/rfc822'
+          Authorization: `Bearer ${await getAccessToken(
+            context.params.userId
+          )}`,
+          "Content-Type": "message/rfc822",
         },
-        body: await mailTemplate({
-          ...imageData,
-          mailTo: reporterData.mailTo,
-          reporterAddress: reporterData.address,
-          reporterName: reporterData.name,
-          fileContentType,
-          fileName,
-          file: fileBuffer
-        })
+        body: await mailTemplate(mailOptions),
       }
-    ).then(a => a.json())
+    ).then((a) => a.json());
 
     console.log(mail)
     await change.ref.parent.child('mailId').set(mail.id)
