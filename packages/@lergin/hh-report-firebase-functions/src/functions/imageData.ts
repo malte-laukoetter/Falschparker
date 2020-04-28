@@ -38,11 +38,12 @@ function parseExifData (fileBuffer: Buffer): ImageData {
   return {
     loc: {
       lat,
-      lon
+      lon,
     },
     date,
-    where: ParkingPlaces.BICYCLE_OR_FOOD_PATH
-  }
+    where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+    obstruction: true
+  };
 }
 
 async function getPlate (url: string): Promise<string> {

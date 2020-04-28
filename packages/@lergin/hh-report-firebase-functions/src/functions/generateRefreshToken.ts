@@ -1,6 +1,6 @@
 import { config, database as databaseFunctions } from 'firebase-functions'
 import fetch from 'node-fetch'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
 
 async function getRefreshToken (code: string) {
   const formData = new FormData()

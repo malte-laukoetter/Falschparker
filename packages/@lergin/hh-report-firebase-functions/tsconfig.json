@@ -3,6 +3,7 @@
     "lib": ["esnext"],
     "module": "commonjs",
     "noImplicitReturns": true,
+    "esModuleInterop": true,
     "outDir": "lib",
     "sourceMap": false,
     "target": "es2017"

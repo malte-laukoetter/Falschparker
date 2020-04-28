@@ -1,7 +1,7 @@
 import { database, storage } from 'firebase-admin'
 import * as functions from 'firebase-functions'
 import fetch from 'node-fetch'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
 import {
   ImageData,
   ReporterData,

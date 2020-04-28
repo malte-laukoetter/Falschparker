@@ -1,5 +1,5 @@
 import { database as databaseFunctions, config, Change } from 'firebase-functions'
-import * as nodeGeocoder from 'node-geocoder'
+import nodeGeocoder from 'node-geocoder'
 
 const geocoder = nodeGeocoder({
   provider: config().geocoder.provider,
