@@ -23,6 +23,7 @@
               :location="{lat: item.loc.lat, lon: item.loc.lon}"
               :parking="item.parking"
               :endangering="item.endangering"
+              :obstruction="item.obstruction"
               :with-intend="item.intend"
               :intend-reason="item.intendReason"
               :offence="item.where"

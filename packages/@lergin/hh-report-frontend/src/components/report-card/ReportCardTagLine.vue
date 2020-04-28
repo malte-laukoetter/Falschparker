@@ -15,6 +15,9 @@ export default class ReportCardTagLine extends Vue {
   public endangering!: boolean;
 
   @Prop(Boolean)
+  public obstruction!: boolean;
+
+  @Prop(Boolean)
   public withIntend!: boolean;
 
   @Prop()
@@ -30,6 +33,10 @@ export default class ReportCardTagLine extends Vue {
     }
 
     tags.push(this.offence);
+
+    if (this.obstruction) {
+      tags.push("Behinderung");
+    }
 
     if (this.endangering) {
       tags.push("Gefährdung");

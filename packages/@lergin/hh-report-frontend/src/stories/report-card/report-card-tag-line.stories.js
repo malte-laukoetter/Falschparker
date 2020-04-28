@@ -17,5 +17,5 @@ export const minimal = () => ({
 
 export const all = () => ({
   components: { ReportCardTagLine },
-  template: `<report-card-tag-line offence="Geh-/Radweg" parking endangering with-intend></report-card-tag-line>`
+  template: `<report-card-tag-line offence="Geh-/Radweg" parking endangering with-intend obstruction></report-card-tag-line>`
 });

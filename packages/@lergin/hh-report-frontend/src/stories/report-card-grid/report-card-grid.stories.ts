@@ -14,6 +14,10 @@ const items = [
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
     where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
     send: false,
+    location: {
+      lat: 52.0,
+      lon: 10.0
+    },
     images: [
       {
         src:
@@ -30,6 +34,10 @@ const items = [
     date: 1584876215118,
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
     where: ParkingPlaces.INTERSECTION,
+    location: {
+      lat: 52.0,
+      lon: 10.0
+    },
     images: [
       {
         src:
@@ -47,6 +55,10 @@ const items = [
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
     where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
     endangering: true,
+    location: {
+      lat: 52.0,
+      lon: 10.0
+    },
     images: [
       {
         src:
@@ -70,6 +82,10 @@ const items = [
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
     where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
     endangering: true,
+    location: {
+      lat: 52.0,
+      lon: 10.0
+    },
     images: [
       {
         src:
@@ -95,6 +111,10 @@ for (let i = 0; i < 20; i++) {
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
     where: ParkingPlaces.INTERSECTION,
     send: true,
+    location: {
+      lat: 52.0,
+      lon: 10.0
+    },
     images: [
       {
         src:

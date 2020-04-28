@@ -55,6 +55,9 @@ export default class ReportCard extends Vue {
   public endangering!: boolean;
 
   @Prop(Boolean)
+  public obstruction!: boolean;
+
+  @Prop(Boolean)
   public withIntend!: boolean;
 
   @Prop()

@@ -12,6 +12,7 @@
           @change:with-intend="(e) => setFirebaseItemProp('intend', e.item, e.newValue)"
           @change:intend-reason="(e) => setFirebaseItemProp('intendReason', e.item, e.newValue)"
           @change:endangering="(e) => setFirebaseItemProp('endangering', e.item, e.newValue)"
+          @change:obstruction="(e) => setFirebaseItemProp('obstruction', e.item, e.newValue)"
           @change:location="(e) => setFirebaseItemProp('loc', e.item, e.newValue)"
           @delete="(e) => deleteItem(e.item)"
           @send="(e) => send(e.item)"
@@ -46,18 +47,6 @@ type FirebaseImageData = ImageData & {'.key': string}
   }
 })
 export default class Send extends Vue {
-  private headers: {text: string, value?: keyof ImageData, sortable?: boolean, width?: string}[] = [
-    { text: 'Bild', sortable: false, width: '150px' },
-    { text: 'Datum', value: 'date' },
-    { text: 'Kennzeichen', value: 'plate' },
-    { text: 'Addresse', value: 'address' },
-    { text: 'Parken', value: 'parking' },
-    { text: 'Wo', value: 'where' },
-    { text: 'Gefährdung', value: 'endangering' },
-    { text: 'Vorsatz', value: 'intend' },
-    { text: '', sortable: false }
-  ]
-
   private parkingPlaces: ParkingPlaces[] = Object.values(ParkingPlaces)
 
   private getFirebaseItemRef (item: FirebaseImageData) {

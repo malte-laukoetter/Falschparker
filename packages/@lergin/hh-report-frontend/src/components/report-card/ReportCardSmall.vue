@@ -16,6 +16,7 @@
           v-else
           class="grey--text"
           :parking="parking"
+          :obstruction="obstruction"
           :endangering="endangering"
           :with-intend="withIntend"
           :offence="offence"
@@ -34,6 +35,7 @@
       <report-card-tag-line
         :parking="parking"
         :endangering="endangering"
+        :obstruction="obstruction"
         :with-intend="withIntend"
         :offence="offence"
       ></report-card-tag-line>
@@ -68,6 +70,9 @@ export default class ReportCardSmall extends Vue {
 
   @Prop(Boolean)
   public endangering!: boolean;
+
+  @Prop(Boolean)
+  public obstruction!: boolean;
 
   @Prop(Boolean)
   public withIntend!: boolean;

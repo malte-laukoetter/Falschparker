@@ -114,6 +114,14 @@
 
       <v-switch
         class="mb-n6"
+        :value="obstruction"
+        inset
+        label="Behinderung"
+        @change="e => changeEvent('obstruction', e)"
+      ></v-switch>
+
+      <v-switch
+        class="mb-n6"
         :value="endangering"
         inset
         label="Gefährdung"
@@ -174,6 +182,9 @@ export default class ReportCardEdit extends Vue {
 
   @Prop(Boolean)
   public endangering!: boolean;
+
+  @Prop(Boolean)
+  public obstruction!: boolean;
 
   @Prop(Boolean)
   public withIntend!: boolean;
