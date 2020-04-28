@@ -29,7 +29,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/intl": "^1.2.0",
-    "intl": "^1.2.5"
+    "@types/intl": "^1.2.0"
   }
 }

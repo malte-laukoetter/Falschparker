@@ -2,80 +2,11 @@ import { database, storage } from 'firebase-admin'
 import * as functions from 'firebase-functions'
 import fetch from 'node-fetch'
 import * as FormData from 'form-data'
-import { ImageData, ReporterData } from '@lergin/hh-report-common'
-import * as Intl from 'intl'
-
-type MailTemplateOptions = ImageData & {
-  mailTo: string;
-  reporterName: string;
-  reporterAddress: string;
-  fileContentType: string;
-  fileName: string;
-  fileBase64: string;
-}
-
-function mailTemplate ({
-  mailTo,
-  date: timestamp,
-  address,
-  loc: {
-    lat,
-    lon
-  },
-  plate,
-  endangering,
-  parking,
-  intend,
-  intendReason,
-  where,
-  reporterName,
-  reporterAddress,
-  fileContentType,
-  fileName,
-  fileBase64
-}: MailTemplateOptions): string {
-  const date = new Date(timestamp * 1000)
-
-  return `To: <${mailTo}>
-Subject: ${plate} - ${date.toISOString().substr(0, 10)}
-Content-Type: multipart/mixed;boundary=92ckNGfS
-
---92ckNGfS
-Content-Type: text/plain;charset=utf-8
-
-Sehr geehrte Damen und Herren,
-
-hiermit zeige ich folgende Verkehrsordnungswidrigkeit an:
-
-Tattag: ${new Intl.DateTimeFormat('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(date)}
-Tatzeit: ${new Intl.DateTimeFormat('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(date)}
-Tatort: ${address} (${convertDecimalLocationToStr(lat)}N ${convertDecimalLocationToStr(lon)}E)
-Kfz-Kennzeichen: ${plate}
-genauer Tatvorwurf: Unzulässiges ${parking ? 'Parken' : 'Halten'} (${where})${endangering ? ' mit Gefährdung' : ''}${endangering && intend ? ' und' : ''}${intend ? ` mit Vorsatz (${intendReason.trim()})` : ''}
-Name und Anschrift des Anzeigenden: ${reporterName}, ${reporterAddress}
-
---92ckNGfS
-Content-Type: ${fileContentType};
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment ;filename="${fileName}"
-
-${fileBase64}
---92ckNGfS--`
-}
-
-function convertDecimalLocationToStr (value: number): string {
-  const sign = value < 0 ? -1 : 1
-
-  const abs = Math.abs(Math.round(value * 1000000))
-
-  const dec = (abs % 1000000) / 1000000
-
-  const deg = Math.floor(abs / 1000000) * sign
-  const min = Math.floor(dec * 60)
-  const sec = (dec - min / 60) * 3600
-
-  return `${deg}°${min}'${Math.round(sec)}"`
-}
+import {
+  ImageData,
+  ReporterData,
+} from "@lergin/hh-report-common";
+import { mailTemplate } from '../MailText';
 
 async function getAccessToken (userId: string) {
   const refreshToken = (await database().ref('users').child(userId).child('data').child('refresh_token').once('value')).val()
@@ -106,7 +37,6 @@ export const sendMail = functions.region('europe-west1').database.ref('/users/{u
   const fileContentType = metaData.contentType
   const fileName = metaData.name
   const fileBuffer = (await file.download())[0]
-  const fileBase64 = fileBuffer.toString('base64')
 
   try {
     const mail = await fetch(
@@ -117,14 +47,14 @@ export const sendMail = functions.region('europe-west1').database.ref('/users/{u
           Authorization: `Bearer ${await getAccessToken(context.params.userId)}`,
           'Content-Type': 'message/rfc822'
         },
-        body: mailTemplate({
+        body: await mailTemplate({
           ...imageData,
           mailTo: reporterData.mailTo,
           reporterAddress: reporterData.address,
           reporterName: reporterData.name,
           fileContentType,
           fileName,
-          fileBase64
+          file: fileBuffer
         })
       }
     ).then(a => a.json())

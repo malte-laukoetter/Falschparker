@@ -7,8 +7,11 @@ import {
   subject,
   tatort,
   tatvorwurf,
+  mailContent,
+  mailTemplate,
   MailTemplateOptions,
 } from "../src/MailText";
+import { ParkingPlaces } from "@lergin/hh-report-common";
 
 describe("convertDecimalLocationToStr(number)", () => {
   test("53.555446 -> 53°33'20\"", () => {
@@ -38,7 +41,7 @@ describe("subject()", () => {
         plate: "HH AB 20",
         date: 1588020191,
       } as MailTemplateOptions)
-    ).toBe("Subject: HH AB 20 - 2020-04-27");
+    ).toBe("HH AB 20 - 2020-04-27");
   });
 });
 
@@ -81,7 +84,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: false,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: false,
         endangering: false,
         intend: false,
@@ -93,7 +96,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: "Kreuzung",
+        where: ParkingPlaces.INTERSECTION,
         obstruction: false,
         endangering: false,
         intend: false,
@@ -105,7 +108,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: true,
         endangering: false,
         intend: false,
@@ -117,7 +120,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: false,
         endangering: true,
         intend: false,
@@ -129,7 +132,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: true,
         endangering: true,
         intend: false,
@@ -141,7 +144,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: false,
         endangering: false,
         intend: true,
@@ -153,7 +156,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: false,
         endangering: false,
         intend: true,
@@ -167,7 +170,7 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: false,
-        where: "Geh-/Radweg",
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
         obstruction: true,
         endangering: true,
         intend: true,
@@ -179,11 +182,82 @@ describe("tatvorwurf()", () => {
   });
 });
 
-
 describe("mailTo()", () => {
   test("anzeigenbusgeldstelle@bzg.hamburg.de", () => {
     expect(mailTo({ mailTo: "anzeigenbusgeldstelle@bzg.hamburg.de" } as MailTemplateOptions)).toBe(
       "To: <anzeigenbusgeldstelle@bzg.hamburg.de>"
     );
+  });
+});
+
+describe("mailContent()", () => {
+  test("HH AB 20 - 2020-04-27", () => {
+    expect(
+      mailContent({
+        mailTo: "anzeigenbusgeldstelle@bzg.hamburg.de",
+        plate: "HH AB 20",
+        date: 1588020191,
+        parking: false,
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        obstruction: false,
+        endangering: false,
+        intend: false,
+        intendReason: "",
+        reporterName: "Max Mustermann",
+        reporterAddress: "Muserstraße 1, 12345 Musterstadt",
+        fileName: "file.png",
+        file: null,
+        fileContentType: "image/png",
+        loc: {
+          lat: 53.163056,
+          lon: 9.561266,
+        },
+        address: "Musterstraße 23, 12345 Musterstadt",
+      })
+    ).toBe(`Sehr geehrte Damen und Herren,
+
+hiermit zeige ich folgende Verkehrsordnungswidrigkeit an:
+
+Tattag: Montag, 27. April 2020
+Tatzeit: 22:43:11
+Tatort: Musterstraße 23, 12345 Musterstadt (53°09'47"N 9°33'41"E)
+Kfz-Kennzeichen: HH AB 20
+genauer Tatvorwurf: Unzulässiges Halten (Geh-/Radweg)
+Name und Anschrift des Anzeigenden: Max Mustermann, Muserstraße 1, 12345 Musterstadt
+
+Meine oben gemachten Angaben einschließlich meiner Personalien sind zutreffend und vollständig.
+Mir ist bewusst, dass ich als Zeuge zur wahrheitsgemäßen Aussage und auch zu einem möglichen Erscheinen vor Gericht verpflichtet bin.
+Vorsätzlich falsche Angaben zu angeblichen Ordnungswidrigkeiten können eine Straftat darstellen.
+
+Mit freundlichen Grüßen
+Max Mustermann`);
+  });
+});
+
+describe("mailTemplate()", () => {
+  test("Contains recipient", () => {
+    expect(
+      mailTemplate({
+        mailTo: "anzeigenbusgeldstelle@bzg.hamburg.de",
+        plate: "HH AB 20",
+        date: 1588020191,
+        parking: false,
+        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        obstruction: false,
+        endangering: false,
+        intend: false,
+        intendReason: "",
+        reporterName: "Max Mustermann",
+        reporterAddress: "Muserstraße 1, 12345 Musterstadt",
+        fileName: "file.jpg",
+        file: new Buffer('empty'),
+        fileContentType: "image/jpg",
+        loc: {
+          lat: 53.163056,
+          lon: 9.561266,
+        },
+        address: "Musterstraße 23, 12345 Musterstadt",
+      })
+    ).resolves.toMatch('anzeigenbusgeldstelle@bzg.hamburg.de');
   });
 });

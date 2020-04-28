@@ -12,16 +12,18 @@
     "@types/intl": "^1.2.0",
     "@types/node-fetch": "^2.1.4",
     "@types/node-geocoder": "^3.19.0",
+    "@types/nodemailer": "^6.4.0",
     "child-process-promise": "^2.2.1",
     "exif-js": "^2.3.0",
     "exif-parser": "^0.1.12",
     "firebase-admin": "~5.11.0",
     "firebase-functions": "^2.1.0",
     "form-data": "^2.3.3",
-    "intl": "1.2.4",
+    "intl": "^1.2.5",
     "mkdirp-promise": "^5.0.1",
     "node-fetch": "^2.3.0",
     "node-geocoder": "^3.22.0",
+    "nodemailer": "^6.4.6",
     "typescript": "^3.2.2"
   },
   "devDependencies": {
@@ -30,8 +32,11 @@
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-typescript": "^7.1.0",
+    "@types/jest": "^25.2.1",
     "eslint-plugin-typescript": "^0.14.0",
+    "jest": "^25.4.0",
     "standard": "^12.0.1",
+    "ts-jest": "^25.4.0",
     "typescript-eslint-parser": "^21.0.2"
   },
   "scripts": {
@@ -41,7 +46,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "standard": {
     "parser": "typescript-eslint-parser",

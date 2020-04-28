@@ -1,5 +1,7 @@
-import { ImageData } from "./ImageData";
-import * as Intl from "intl";
+
+import { ImageData } from "@lergin/hh-report-common";
+import Intl from "intl";
+import MailComposer from "nodemailer/lib/mail-composer";
 
 export type MailTemplateOptions = ImageData & {
   mailTo: string;
@@ -7,7 +9,7 @@ export type MailTemplateOptions = ImageData & {
   reporterAddress: string;
   fileContentType: string;
   fileName: string;
-  fileBase64: string;
+  file: Buffer;
 }
 
 export function convertDecimalLocationToStr(value: number): string {
@@ -35,7 +37,7 @@ export function mailTo({ mailTo }: MailTemplateOptions) {
 export function subject({ plate, date: timestamp }: MailTemplateOptions) {
   const date = new Date(timestamp * 1000);
 
-  return `Subject: ${plate} - ${dateToISODate(date)}`;
+  return `${plate} - ${dateToISODate(date)}`;
 };
 
 export function dayOfOffence({ date: timestamp }: MailTemplateOptions) {
@@ -113,37 +115,17 @@ Content-Disposition: attachment ;filename="${fileName}"
 ${fileBase64}`;
 }
 
-export function mailTemplate(options: MailTemplateOptions): string {
-  const {
-    date: timestamp,
-    address,
-    loc: { lat, lon },
-    plate,
-    endangering,
-    parking,
-    intend,
-    intendReason,
-    where,
-    reporterName,
-    reporterAddress,
-    fileContentType,
-    fileName,
-    fileBase64,
-  } = options;
-  const date = new Date(timestamp * 1000);
-
-// TODO: use nodemailer/lib/mail-composer
-
-  return `${mailTo(options)}
-${subject(options)}
-Content-Type: multipart/mixed;boundary=92ckNGfS
-
---92ckNGfS
-Content-Type: text/plain;charset=utf-8
-
-${mailContent(options)}
-
---92ckNGfS
-${attatchment(fileContentType, fileName, fileBase64)}
---92ckNGfS--`;
+export async function mailTemplate(options: MailTemplateOptions): Promise<string> {
+  return (await new MailComposer({
+    to: options.mailTo,
+    attachments: [
+      {
+        filename: options.fileName,
+        contentType: options.fileContentType,
+        content: options.file,
+      },
+    ],
+    subject: subject(options),
+    text: mailContent(options),
+  }).compile().build()).toString();
 }

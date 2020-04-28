@@ -5,11 +5,17 @@
     "noImplicitReturns": true,
     "outDir": "dist/cjs",
     "sourceMap": false,
-    "target": "es2017"
+    "esModuleInterop": true,
+    "target": "es2017",
+    "types": [
+      "jest",
+      "node"
+    ]
   },
   "compileOnSave": true,
   "include": [
-    "src"
+    "src",
+    "test"
   ],
   "exclude": [
     "node_modules"

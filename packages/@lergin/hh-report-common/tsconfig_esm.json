@@ -5,9 +5,13 @@
     "noImplicitReturns": true,
     "outDir": "dist/esm",
     "sourceMap": false,
+    "esModuleInterop": true,
     "target": "es2017",
     "declaration": true,
-    "declarationDir": "dist/types"
+    "declarationDir": "dist/types",
+    "types": [
+      "node"
+    ]
   },
   "compileOnSave": true,
   "include": [
