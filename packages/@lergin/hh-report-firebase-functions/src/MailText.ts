@@ -41,7 +41,7 @@ export function subject({ plate, date: timestamp }: MailTemplateOptions) {
 };
 
 export function dayOfOffence({ date: timestamp }: MailTemplateOptions) {
-  Intl.__disableRegExpRestore();
+  (Intl as any).__disableRegExpRestore();
   const date = new Date(timestamp * 1000);
   return new Intl.DateTimeFormat("de-DE", {
     weekday: "long",
@@ -52,7 +52,7 @@ export function dayOfOffence({ date: timestamp }: MailTemplateOptions) {
 }
 
 export function timeOfOffence({ date: timestamp }: MailTemplateOptions) {
-  Intl.__disableRegExpRestore();
+  (Intl as any).__disableRegExpRestore();
   const date = new Date(timestamp * 1000);
   return new Intl.DateTimeFormat("de-DE", {
     hour: "2-digit",
