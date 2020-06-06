@@ -12,7 +12,7 @@
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook"
   },
   "dependencies": {
-    "@lergin/hh-report-common": "^1.0.7",
+    "@lergin/hh-report-common": "^1.0.8",
     "@types/chart.js": "^2.9.16",
     "@types/gapi": "0.0.36",
     "@types/gapi.auth2": "0.0.48",

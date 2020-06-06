@@ -216,7 +216,19 @@ export default class ReportCardEdit extends Vue {
     thumbnail: string;
   }[];
 
-  private parkingPlaces: ParkingPlaces[] = Object.values(ParkingPlaces);
+  private parkingPlaces: ParkingPlaces[] = [
+    ParkingPlaces.BTK_712037,
+    ParkingPlaces.BTK_712031,
+    ParkingPlaces.BTK_741033,
+    ParkingPlaces.BTK_741034_1,
+    ParkingPlaces.BTK_741034_2,
+    ParkingPlaces.BTK_742107,
+    ParkingPlaces.BTK_712029,
+    ParkingPlaces.BTK_712033,
+    ParkingPlaces.BTK_741015,
+    ParkingPlaces.BTK_741017,
+    ParkingPlaces.BTK_741018
+  ];
 
   get localeDate() {
     return new Date(this.date * 1000).toLocaleString(undefined, {
