@@ -21,6 +21,7 @@
     "@types/luxon": "^1.22.0",
     "@types/uuid": "^3.4.8",
     "chart.js": "^2.9.3",
+    "core-js": "^2.6.11",
     "firebase": "^5.11.1",
     "firebaseui": "^3.6.1",
     "leaflet": "^1.6.0",
