@@ -28,9 +28,11 @@ self.addEventListener('fetch', (event) => {
     const data = await event.request.formData();
     const client = await self.clients.get(event.resultingClientId || event.clientId);
     // Get the data from the named element 'file'
-    const file = data.get('file');
+    const files = data.getAll('file');
 
-    console.log('file', file);
-    client.postMessage({ file, action: 'load-image' });
+    for (let file of files) {
+      console.log("file", file);
+      client.postMessage({ file, action: "load-image" });
+    }
   }());
 });

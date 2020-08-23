@@ -44,13 +44,14 @@ auth().onAuthStateChanged(user => {
   }
 })
 
-navigator.serviceWorker.addEventListener("message", event => {
+navigator.serviceWorker.addEventListener("message", async event => {
   console.log(event)
   const imageBlob = event.data.file as File
 
   console.log(imageBlob)
   if (auth().currentUser) {
-    uploadImage(imageBlob)
+    await uploadImage(imageBlob)
+    alert(`Uploaded image: ${imageBlob.name}`)
   } else {
     const unsubscribe = auth().onAuthStateChanged(user => {
       if (user) {
