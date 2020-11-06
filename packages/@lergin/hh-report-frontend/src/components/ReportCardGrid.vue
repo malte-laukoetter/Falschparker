@@ -4,6 +4,7 @@
     item-key=".key"
     group-by="date"
     group-desc
+    :items-per-page="25"
     :custom-group="groupItems"
     :expanded="expandable ? items.filter(item => !item.send) : []"
   >
