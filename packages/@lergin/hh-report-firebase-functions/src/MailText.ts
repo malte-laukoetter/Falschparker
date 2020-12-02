@@ -87,7 +87,7 @@ export function mailContent(options: MailTemplateOptions): string {
     reporterName,
     reporterAddress
   } = options;
-  return `Sehr geehrte Damen und Herren,
+  return `Sehr geehrte Menschen,
 
 hiermit zeige ich folgende Verkehrsordnungswidrigkeit an:
 
