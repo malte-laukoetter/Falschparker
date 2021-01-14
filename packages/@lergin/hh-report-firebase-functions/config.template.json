@@ -11,7 +11,7 @@
       "redirect_uri": "http://localhost:8080"
     }
   },
-  "openalpr": {
-    "secret_key": "sk_xxx"
+  "platerecognizer": {
+    "token": "xxx"
   }
 }

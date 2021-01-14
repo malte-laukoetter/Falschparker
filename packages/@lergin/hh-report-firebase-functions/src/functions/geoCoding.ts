@@ -1,4 +1,4 @@
-import { database as databaseFunctions, config, Change } from 'firebase-functions'
+import { database as databaseFunctions, config, Change, logger } from 'firebase-functions'
 import nodeGeocoder from 'node-geocoder'
 
 const geocoder = nodeGeocoder({
@@ -26,7 +26,7 @@ export const geoCoding = databaseFunctions.ref('/users/{userId}/images/{id}/loc'
       { formattedAddress: address }
     ] = await geocoder.reverse({ lat: newLat, lon: newLon })
 
-    console.log(`Lat ${newLat}, Lon ${newLon} -> ${address}`)
+    logger.log(`Lat ${newLat}, Lon ${newLon} -> ${address}`);
 
     change.after.ref.parent.child('address').set(address)
   }

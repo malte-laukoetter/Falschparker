@@ -1,4 +1,4 @@
-import { config, database as databaseFunctions } from 'firebase-functions'
+import { config, database as databaseFunctions, logger } from 'firebase-functions'
 import fetch from 'node-fetch'
 import FormData from 'form-data'
 
@@ -15,7 +15,7 @@ async function getRefreshToken (code: string) {
     body: formData
   }).then(res => res.json())
 
-  console.log(result)
+  logger.log(result);
 
   return result.refresh_token
 }

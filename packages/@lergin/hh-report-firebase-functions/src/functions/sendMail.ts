@@ -49,7 +49,7 @@ export const sendMail = functions.region('europe-west1').database.ref('/users/{u
       file: fileBuffer,
     };
 
-    console.log(mailOptions)
+    functions.logger.log(mailOptions);
     const mail = await fetch(
       "https://www.googleapis.com/upload/gmail/v1/users/me/messages/send?uploadType=media",
       {
@@ -64,10 +64,10 @@ export const sendMail = functions.region('europe-west1').database.ref('/users/{u
       }
     ).then((a) => a.json());
 
-    console.log(mail)
+    functions.logger.log(mail);
     await change.ref.parent.child('mailId').set(mail.id)
   } catch (err) {
-    console.log(err)
+    functions.logger.warn(err);
     await change.ref.remove()
   }
 })

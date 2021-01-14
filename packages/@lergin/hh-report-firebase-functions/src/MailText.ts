@@ -1,4 +1,3 @@
-
 import { ImageData } from "@lergin/hh-report-common";
 import Intl from "intl";
 import MailComposer from "nodemailer/lib/mail-composer";

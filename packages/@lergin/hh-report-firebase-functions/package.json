@@ -3,10 +3,10 @@
   "description": "Firebase functions for hh-report",
   "main": "lib/src/index.js",
   "engines": {
-    "node": "8"
+    "node": "12"
   },
   "dependencies": {
-    "@google-cloud/storage": "^2.5.0",
+    "@google-cloud/storage": "^5.7.2",
     "@lergin/hh-report-common": "^1.0.8",
     "@types/form-data": "^2.5.0",
     "@types/intl": "^1.2.0",
@@ -17,8 +17,8 @@
     "child-process-promise": "^2.2.1",
     "exif-js": "^2.3.0",
     "exif-parser": "^0.1.12",
-    "firebase-admin": "~5.11.0",
-    "firebase-functions": "^2.3.1",
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.0",
     "form-data": "^2.5.1",
     "intl": "^1.2.5",
     "mkdirp": "^1.0.4",
