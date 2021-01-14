@@ -41,9 +41,7 @@ async function getPlateFromPlaterecognizer(fileBuffer: Buffer): Promise<String> 
     method: "POST",
     body,
     headers: {
-      Authorization: `Token ${functions.config().platerecognizer.token}`,
-      "Content-Type": "multipart/form-data",
-      ...body.getHeaders()
+      Authorization: `Token ${functions.config().platerecognizer.token}`
     },
   }).then((res) => res.json());
 
