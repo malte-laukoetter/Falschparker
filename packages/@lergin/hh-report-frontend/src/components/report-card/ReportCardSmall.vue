@@ -25,8 +25,8 @@
       <v-list-item-avatar tile size="80">
         <v-img
           @click-image="() => $emit('click-image')"
-          :lazy-src="images[0].thumbnail"
-          :src="images[0].thumbnail ? images[0].thumbnail : images[0].src"
+          :lazy-src="images[0].thumbnail.replace('googleapis', 'cloud.google')"
+          :src="images[0].thumbnail ? images[0].thumbnail.replace('googleapis', 'cloud.google') : images[0].src.replace('googleapis', 'cloud.google')"
           :aspect-ratio="1 / 1"
         ></v-img>
       </v-list-item-avatar>
