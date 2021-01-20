@@ -3,7 +3,7 @@ import * as functions from "firebase-functions";
 import fetch from "node-fetch";
 import FormData from "form-data";
 import knownPlatePrefixes from "../plateprefixes.json";
-import { getImageRef, shouldRunForFile } from "../utils";
+import { getImageId, getImageRef, shouldRunForFile } from "../utils";
 import { spawn } from "child-process-promise";
 import { unlink, readFile } from "fs";
 import mkdirp from "mkdirp";
@@ -109,7 +109,11 @@ export const extractPlate = functions
       fileBuffer = await createSmallerFilebuffer(object);
     }
 
-    functions.logger.log("FileBuffer length: ", fileBuffer.length)
+    functions.logger.log(
+      getImageId(object),
+      "FileBuffer length: ",
+      fileBuffer.length
+    );
  
     const plate = await getPlateFromPlaterecognizer(fileBuffer);
 
@@ -119,6 +123,7 @@ export const extractPlate = functions
     }
 
     functions.logger.log(
+      getImageId(object),
       "Extracted Plate for image '",
       object.name,
       "': ",

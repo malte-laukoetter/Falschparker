@@ -32,12 +32,17 @@ export async function getFileUrl(file: File, expires: number) {
   return (await file.getSignedUrl({ action: "read", expires: expires }))[0];
 }
 
-export function getImageRef(object: functions.storage.ObjectMetadata) {
+export function getImageId(object: functions.storage.ObjectMetadata): string {
   const imageId = object.md5Hash ?? object.crc32c;
+
+  return imageId.replaceAll("/", "_").replaceAll("+", "-");
+};
+
+export function getImageRef(object: functions.storage.ObjectMetadata) {
  
   return database()
     .ref("users")
     .child(object.metadata.user)
     .child("images")
-    .child(imageId);
+    .child(getImageId(object));
 }

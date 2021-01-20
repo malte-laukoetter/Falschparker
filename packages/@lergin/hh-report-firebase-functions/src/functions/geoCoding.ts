@@ -26,7 +26,7 @@ export const geoCoding = databaseFunctions.ref('/users/{userId}/images/{id}/loc'
       { formattedAddress: address }
     ] = await geocoder.reverse({ lat: newLat, lon: newLon })
 
-    logger.log(`Lat ${newLat}, Lon ${newLon} -> ${address}`);
+    logger.log(context.params.id, `Lat ${newLat}, Lon ${newLon} -> ${address}`);
 
     change.after.ref.parent.child('address').set(address)
   }

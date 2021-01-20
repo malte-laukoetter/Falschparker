@@ -2,7 +2,7 @@ import * as ExifParser from "exif-parser";
 import { storage } from "firebase-admin";
 import * as functions from "firebase-functions";
 import { ImageData, ParkingPlaces } from "@lergin/hh-report-common";
-import { getFileUrl, getImageRef, shouldRunForFile } from "../utils";
+import { getFileUrl, getImageId, getImageRef, shouldRunForFile } from "../utils";
 
 function parseExifData(fileBuffer: Buffer): ImageData {
   const parser = ExifParser.create(fileBuffer);
@@ -40,7 +40,7 @@ export const extractExifData = functions
     const fileBuffer = (await file.download())[0];
     const exifData = parseExifData(fileBuffer);
 
-    functions.logger.log(exifData);
+    functions.logger.log(getImageId(object), exifData);
 
     const imgUrl = await getFileUrl(
       file,
