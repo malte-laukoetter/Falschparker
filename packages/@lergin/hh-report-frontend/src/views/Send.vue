@@ -72,7 +72,7 @@ export default class Send extends Vue {
       ... item,
       images: [{
         src: item.url,
-        thumbnail: item.thumbnail
+        thumbnail: item.thumbnail ?? item.url
       }]
     }))
   }  
