@@ -1,13 +1,33 @@
 <template>
+  <v-input><
   <v-data-iterator
     :items="items"
+    :search="search"
     item-key=".key"
     group-by="date"
     group-desc
     :items-per-page="25"
     :custom-group="groupItems"
     :expanded="expandable ? items.filter(item => !item.send) : []"
+    :footer-props="{'items-per-page-options': [5,10,25,50,100,-1], 'show-first-last-page': true}"
   >
+    <template v-slot:header>
+      <v-toolbar
+        dark
+        color="blue darken-3"
+        class="mb-1"
+      >
+        <v-text-field
+          v-model="search"
+          clearable
+          flat
+          solo-inverted
+          hide-details
+          prepend-inner-icon="mdi-magnify"
+          label="Search"
+        ></v-text-field>
+      </v-toolbar>
+    </template>
     <template v-slot:default="{ groupedItems, isExpanded, expand }">
       <template v-for="[send, items] of Object.entries(groupedItems)">
         <v-subheader :key="`${send}-subheader`">{{ send }}</v-subheader>
@@ -121,6 +141,8 @@ export default class ReportCardGrid extends Vue {
 
   @Prop(Array)
   public items!: ImageData[];
+
+  private search: string = "";
 
   groupItems(
     items: ImageData[],
