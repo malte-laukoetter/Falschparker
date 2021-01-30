@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'packages/@ergin/hh-report-firebase-functions/**'
+      - 'packages/@ergin/hh-report-common/**'
 
 jobs:
   deploy:
