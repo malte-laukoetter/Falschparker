@@ -49,7 +49,7 @@ export const sendMail = functions.region('europe-west1').database.ref('/users/{u
       file: fileBuffer,
     };
 
-    functions.logger.log(context.params.id, mailOptions);
+    functions.logger.log(context.params.id, mailOptions?.mailTo, mailOptions?.plate);
     const mail = await fetch(
       "https://www.googleapis.com/upload/gmail/v1/users/me/messages/send?uploadType=media",
       {
