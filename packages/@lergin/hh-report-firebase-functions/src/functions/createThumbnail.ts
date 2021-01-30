@@ -36,6 +36,7 @@ async function createThumbnailFile(object: functions.storage.ObjectMetadata) {
     "convert",
     [
       tempLocalFile,
+      "-auto-orient",
       "-thumbnail",
       `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`,
       tempLocalThumbFile,

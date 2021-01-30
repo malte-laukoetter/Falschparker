@@ -69,7 +69,13 @@ async function createSmallerFilebuffer(object: functions.storage.ObjectMetadata)
   // Generate a small file using ImageMagick.
   await spawn(
     "convert",
-    [tempLocalFile, "-thumbnail", `50%`, tempLocalSmallFile],
+    [
+      tempLocalFile,
+      "-auto-orient",
+      "-thumbnail",
+      "50%",
+      tempLocalSmallFile
+    ],
     { capture: ["stdout", "stderr"] }
   );
 
