@@ -3,6 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <report-card-grid
+          style="width: 100%; max-width: 1500px;"
           expandable
           :items="convertItems(items)"
           @change:license-plate="(e) => setFirebaseItemProp('plate', e.item, e.newValue)"
