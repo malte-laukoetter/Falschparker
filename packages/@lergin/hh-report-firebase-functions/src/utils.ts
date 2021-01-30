@@ -35,7 +35,7 @@ export async function getFileUrl(file: File, expires: number) {
 export function getImageId(object: functions.storage.ObjectMetadata): string {
   const imageId = object.md5Hash ?? object.crc32c;
 
-  return imageId.replaceAll("/", "_").replaceAll("+", "-");
+  return imageId.replace(/\//g, "_").replace(/\+/g, "-");
 };
 
 export function getImageRef(object: functions.storage.ObjectMetadata) {
