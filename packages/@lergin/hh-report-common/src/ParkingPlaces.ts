@@ -2,15 +2,17 @@
 export enum ParkingPlaces {
   BTK_712037 = "Unbeschilderter Radweg",
   BTK_712031 = "Gehweg",
-  BTK_741015 = "Fußgängerüberweg",
-  BTK_741017 = "Absolutes Halteverbot, Zeichen 283",
-  BTK_741018 = "Eingeschränktes Halteverbot, Zeichen 286",
+  BTK_712019 = "Kreuzungsbereich",
   BTK_741033 = "Radweg, Zeichen 237",
   BTK_741034_1 = "Gemeinsamen Geh- und Radweg, Zeichen 240",
   BTK_741034_2 = "Getrennten Geh- und Radweg, Zeichen 241",
   BTK_742107 = "Schutzstreifen für den Radverkeht, Zeichen 340",
   BTK_712029 = "Bordsteinabsenkung",
   BTK_712033 = "Zweite Reihe",
+  BTK_741015 = "Fußgängerüberweg",
+  BTK_141245 = "Sperrfläche, Zeichen 298",
+  BTK_741017 = "Absolutes Halteverbot, Zeichen 283",
+  BTK_741018 = "Eingeschränktes Halteverbot, Zeichen 286",
   /**
    * @deprecated
    */
