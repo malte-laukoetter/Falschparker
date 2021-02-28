@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <upload></upload>
+        <upload style="width: 100%; max-width: 1500px;"></upload>
         <report-card-grid
           style="width: 100%; max-width: 1500px;"
           expandable
