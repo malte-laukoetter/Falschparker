@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
+        <upload></upload>
         <report-card-grid
           style="width: 100%; max-width: 1500px;"
           expandable
@@ -31,6 +32,7 @@ import 'firebase/database'
 import { ImageData, ParkingPlaces } from '@lergin/hh-report-common'
 import '../vuefire'
 import ReportCardGrid from '@/components/ReportCardGrid.vue'
+import Upload from '@/components/Upload.vue'
 
 type FirebaseImageData = ImageData & {'.key': string}
 
@@ -44,7 +46,8 @@ type FirebaseImageData = ImageData & {'.key': string}
     }
   },
   components: {
-    ReportCardGrid
+    ReportCardGrid,
+    Upload
   }
 })
 export default class Send extends Vue {

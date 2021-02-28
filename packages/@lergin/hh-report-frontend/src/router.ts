@@ -10,8 +10,8 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/send',
-      name: 'Send',
+      path: '/',
+      name: 'Anzeigen',
       beforeEnter: (to, from, next) => {
         if (auth().currentUser) {
           next()
@@ -20,18 +20,6 @@ export default new Router({
         }
       },
       component: () => import(/* webpackChunkName: "send" */ './views/Send.vue')
-    },
-    {
-      path: '/upload',
-      name: 'Upload',
-      beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
-          next()
-        } else {
-          next('/login')
-        }
-      },
-      component: () => import(/* webpackChunkName: "upload" */ './views/Upload.vue')
     },
     {
       path: '/settings',
@@ -85,7 +73,7 @@ export default new Router({
       path: '*',
       beforeEnter: (to, from, next) => {
         if (auth().currentUser) {
-          next('/upload')
+          next('/')
         } else {
           next('/login')
         }
