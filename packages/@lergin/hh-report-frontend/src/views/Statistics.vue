@@ -32,7 +32,7 @@
           <v-responsive :aspect-ratio="2/1">
             <v-card-title><h4>Anzeigen / Tag</h4></v-card-title>
             <v-divider></v-divider>
-            <stats-chart-time :chart-data="createChartData(dailyAmounts)"></stats-chart-time>
+            <stats-chart-time unit="month" :chart-data="createChartData(dailyAmounts)"></stats-chart-time>
           </v-responsive>
         </v-card>
       </v-flex>
@@ -59,7 +59,7 @@
         <v-card>
           <v-card-title><h4>Anzeigen / Jahr</h4></v-card-title>
           <v-divider></v-divider>
-          <stats-chart-time :chart-data="createChartData(yearlyAmounts)"></stats-chart-time>
+          <stats-chart-time unit="year" :chart-data="createChartData(yearlyAmounts)"></stats-chart-time>
         </v-card>
       </v-flex>
     </v-layout>
@@ -138,7 +138,7 @@ export default class Statistics extends Vue {
       if(item.date) {
         const date = DateTime.fromSeconds(item.date).set({
           day: 1,
-          month: 0
+          month: 1
         }).toISODate()
         
         acc.set(date, (acc.get(date) || 0) + 1)

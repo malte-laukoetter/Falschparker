@@ -7,6 +7,9 @@ import merge from 'lodash/merge'
 
 @Component
 export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, Bar) {
+  @Prop({ type: String, default: false})
+  public unit: Chart.TimeUnit;
+
   public chartData!: ChartData
 
   public get options(): ChartOptions {
@@ -21,7 +24,10 @@ export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, B
             type: 'time',
             offset: true,
             distribution: 'linear',
-            display: true
+            display: true,
+            time: {
+              unit: this.unit
+            }
           }],
           yAxes: [{
             display: true,
