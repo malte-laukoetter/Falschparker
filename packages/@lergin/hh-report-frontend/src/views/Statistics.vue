@@ -53,6 +53,15 @@
           </v-list>
         </v-card>
       </v-flex>
+  
+
+      <v-flex xs12 sm6 md4 lg4>
+        <v-card>
+          <v-card-title><h4>Anzeigen / Jahr</h4></v-card-title>
+          <v-divider></v-divider>
+          <stats-chart-time :chart-data="createChartData(yearlyAmounts)"></stats-chart-time>
+        </v-card>
+      </v-flex>
     </v-layout>
   </v-container>
 </div>
@@ -121,6 +130,22 @@ export default class Statistics extends Vue {
 
   get itemsSortedByDate() {
     return this.items.sort((a, b) => a.date && b.date ? a.date - b.date : 0)
+  }
+
+
+  get yearlyAmounts () {
+    return this.itemsSortedByDate.reduce((acc, item) => {
+      if(item.date) {
+        const date = DateTime.fromSeconds(item.date).set({
+          day: 1,
+          month: 0
+        }).toISODate()
+        
+        acc.set(date, (acc.get(date) || 0) + 1)
+      }
+
+      return acc
+    }, new Map<string, number>())
   }
 
   get monthlyAmounts () {
