@@ -8,7 +8,7 @@ import merge from 'lodash/merge'
 @Component
 export default class StatsChartTime extends mixins(chartjsMixins.reactiveProp, Bar) {
   @Prop({ type: String, default: false})
-  public unit: Chart.TimeUnit;
+  public unit!: Chart.TimeUnit;
 
   public chartData!: ChartData
 
