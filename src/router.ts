@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { auth } from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 
 Vue.use(Router)
@@ -13,7 +13,7 @@ export default new Router({
       path: '/',
       name: 'Anzeigen',
       beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
+        if (firebase.auth().currentUser) {
           next()
         } else {
           next('/login')
@@ -25,10 +25,10 @@ export default new Router({
       path: '/settings',
       name: 'Settings',
       beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
-          next()
+        if (firebase.auth().currentUser) {
+          next();
         } else {
-          next('/login')
+          next("/login");
         }
       },
       component: () => import(/* webpackChunkName: "settings" */ './views/Settings.vue')
@@ -37,10 +37,10 @@ export default new Router({
       path: '/map',
       name: 'Map',
       beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
-          next()
+        if (firebase.auth().currentUser) {
+          next();
         } else {
-          next('/login')
+          next("/login");
         }
       },
       component: () => import(/* webpackChunkName: "map" */ './views/Map.vue')
@@ -49,10 +49,10 @@ export default new Router({
       path: '/stats',
       name: 'Statistics',
       beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
-          next()
+        if (firebase.auth().currentUser) {
+          next();
         } else {
-          next('/login')
+          next("/login");
         }
       },
       component: () => import(/* webpackChunkName: "stats" */ './views/Statistics.vue')
@@ -61,10 +61,10 @@ export default new Router({
       path: '/login',
       name: 'Login',
       beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
-          next(false)
+        if (firebase.auth().currentUser) {
+          next(false);
         } else {
-          next()
+          next();
         }
       },
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
@@ -72,10 +72,10 @@ export default new Router({
     {
       path: '*',
       beforeEnter: (to, from, next) => {
-        if (auth().currentUser) {
-          next('/')
+        if (firebase.auth().currentUser) {
+          next("/");
         } else {
-          next('/login')
+          next("/login");
         }
       }
     }

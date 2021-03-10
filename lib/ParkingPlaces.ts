@@ -13,6 +13,7 @@ export enum ParkingPlaces {
   BTK_141245 = "Sperrfläche, Zeichen 298",
   BTK_741017 = "Absolutes Halteverbot, Zeichen 283",
   BTK_741018 = "Eingeschränktes Halteverbot, Zeichen 286",
+  BTK_141332 = "links von einer Fahrbahnbegrenzung (Zeichen 295) mit Sonderweg rechts", //(Ziff. 2a zu Nr. 68 im Abschnitt 9 der Anlage 2 zu § 41 Absatz 1 StVO)"
   /**
    * @deprecated
    */

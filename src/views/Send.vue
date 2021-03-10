@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { auth, database } from 'firebase/app'
+import  firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import { ImageData } from '../../lib/ImageData'
@@ -39,8 +39,8 @@ type FirebaseImageData = ImageData & {'.key': string}
 
 @Component({
   firebase () {
-    const db = database()
-    const user = auth().currentUser
+    const db =  firebase.database()
+    const user =  firebase.auth().currentUser
 
     return {
       items: db.ref('users').child(user ? user.uid : 'no-user').child('images')

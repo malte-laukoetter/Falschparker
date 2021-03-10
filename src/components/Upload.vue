@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { auth } from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import { uploadImage } from '../uploadImage'
 
@@ -34,7 +34,7 @@ export default class Upload extends Vue {
   async handleFileSelect (e: Event) {
     if (this.files === null) return
 
-    if (!auth().currentUser) {
+    if (!firebase.auth().currentUser) {
       this.$router.push('/login')
       return
     }

@@ -12,7 +12,7 @@
 /// <reference path="../../node_modules/@types/gapi.auth2/index.d.ts" />
 
 import { Component, Vue } from 'vue-property-decorator'
-import { auth, database } from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import * as uuid from 'uuid/v1'
@@ -22,7 +22,7 @@ import 'firebaseui/dist/firebaseui.css'
 @Component
 export default class Login extends Vue {
   mounted () {
-    auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.$router.push('/upload')
       }
@@ -45,12 +45,12 @@ export default class Login extends Vue {
           return
         }
 
-        const credential = auth.GoogleAuthProvider.credential(idToken)
-        const { user } = await auth().signInAndRetrieveDataWithCredential(credential)
+        const credential =  firebase.auth.GoogleAuthProvider.credential(idToken)
+        const { user } = await  firebase.auth().signInAndRetrieveDataWithCredential(credential)
 
         if (!user) return
 
-        const dataRef = database().ref('users').child(user.uid).child('data')
+        const dataRef =  firebase.database().ref('users').child(user.uid).child('data')
 
         dataRef.child('code').set(code)
         dataRef.child('mailTo').set('anzeigenbussgeldstelle@eza.hamburg.de')
