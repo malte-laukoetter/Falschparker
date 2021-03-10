@@ -7,24 +7,9 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "source": "packages/@lergin/hh-report-firebase-functions",
+    "source": "functions",
     "predeploy": [
-      "npm --prefix packages/@lergin/hh-report-firebase-functions run build"
-    ]
-  },
-  "hosting": {
-    "predeploy": "npm run build_frontend",
-    "public": "packages/@lergin/hh-report-frontend/dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+      "npm --prefix functions run build"
     ]
   },
   "storage": [
