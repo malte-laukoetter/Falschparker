@@ -1,5 +1,5 @@
 import ReportCardGrid from "@/components/ReportCardGrid.vue";
-import { ParkingPlaces } from '@lergin/hh-report-common'
+import { ParkingPlaces } from '../../../lib/ParkingPlaces';
 
 export default {
   component: ReportCardGrid,

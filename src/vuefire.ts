@@ -3,22 +3,22 @@
  */
 
 import Vue from 'vue'
-import { database } from 'firebase'
+import  firebase from 'firebase'
 
 declare module 'vue/types/vue' {
   interface Vue {
     $firebaseRefs: Readonly<
       Record<
         string,
-        database.Reference
+         firebase.database.Reference
       >
     >;
   }
 }
 
 type VueFirebaseObject = {
-  [key: string]: database.Reference | {
-    source: database.Reference,
+  [key: string]:  firebase.database.Reference | {
+    source:  firebase.database.Reference,
     asObject: boolean
   }
 }

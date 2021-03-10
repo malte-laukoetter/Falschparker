@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { auth } from 'firebase/app'
+import  firebase from 'firebase/app'
 import 'firebase/auth'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 
@@ -39,7 +39,7 @@ export default class App extends Vue {
   }
 
   logout () {
-    auth().signOut()
+     firebase.auth().signOut()
   }
 }
 </script>

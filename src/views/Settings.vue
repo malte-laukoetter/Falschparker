@@ -37,15 +37,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { auth, database } from 'firebase/app'
+import  firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import '../vuefire'
 
 @Component({
   firebase () {
-    const db = database()
-    const user = auth().currentUser
+    const db =  firebase.database()
+    const user =  firebase.auth().currentUser
 
     return {
       name: {

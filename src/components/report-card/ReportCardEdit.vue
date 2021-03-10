@@ -227,7 +227,8 @@ export default class ReportCardEdit extends Vue {
     ParkingPlaces.BTK_712033,
     ParkingPlaces.BTK_741015,
     ParkingPlaces.BTK_741017,
-    ParkingPlaces.BTK_741018
+    ParkingPlaces.BTK_741018,
+    ParkingPlaces.BTK_141332
   ];
 
   get localeDate() {

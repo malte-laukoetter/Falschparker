@@ -39,7 +39,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { L, LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
 import Vue2LeafletMarkercluster from 'vue2-leaflet-markercluster'
-import { auth, database } from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import { ImageData } from '../../lib/ImageData'
@@ -98,8 +98,8 @@ const openStreetMapTileProvider: {readonly [K in OpenStreetMapTileProviderKey]: 
     ReportCard
   },
   firebase () {
-    const db = database()
-    const user = auth().currentUser
+    const db = firebase.database()
+    const user = firebase.auth().currentUser
 
     return {
       items: {
