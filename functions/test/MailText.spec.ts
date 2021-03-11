@@ -11,7 +11,7 @@ import {
   mailTemplate,
   MailTemplateOptions,
 } from "../src/MailText";
-import { ParkingPlaces } from "../../lib/ParkingPlaces";
+import { ParkingPlaces } from "../lib/ParkingPlaces";
 
 describe("convertDecimalLocationToStr(number)", () => {
   test("53.555446 -> 53°33'20\"", () => {

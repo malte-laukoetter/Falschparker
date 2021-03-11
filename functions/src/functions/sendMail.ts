@@ -2,8 +2,8 @@ import { database, storage } from 'firebase-admin'
 import * as functions from 'firebase-functions'
 import fetch from 'node-fetch'
 import FormData from 'form-data'
-import { ImageData } from "../../../lib/ImageData";
-import { ReporterData } from "../../../lib/ReporterData";
+import { ImageData } from "../../lib/ImageData";
+import { ReporterData } from "../../lib/ReporterData";
 import { mailTemplate } from '../MailText';
 
 async function getAccessToken (userId: string) {
