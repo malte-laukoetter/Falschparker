@@ -18,8 +18,7 @@ function parseExifData(fileBuffer: Buffer): ImageData {
       lon,
     },
     date,
-    where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
-    obstruction: true,
+    where: ParkingPlaces.BTK_712031
   };
 }
 
