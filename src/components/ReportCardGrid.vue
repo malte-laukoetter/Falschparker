@@ -87,8 +87,8 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ImageData } from '../../lib/ImageData'
-import { ParkingPlaces } from '../../lib/ParkingPlaces'
+import { ImageData } from '../../functions/lib/ImageData'
+import { ParkingPlaces } from '../../functions/lib/ParkingPlaces'
 import ReportCard from "./report-card/ReportCard.vue";
 
 function getNestedValue(

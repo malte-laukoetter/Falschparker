@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../lib/ParkingPlaces';
+import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
 
 @Component
 export default class ReportCardTagLine extends Vue {

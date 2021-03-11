@@ -1,8 +1,8 @@
 import * as ExifParser from "exif-parser";
 import { storage } from "firebase-admin";
 import * as functions from "firebase-functions";
-import { ImageData } from "../../../lib/ImageData";
-import { ParkingPlaces } from "../../../lib/ParkingPlaces";
+import { ImageData } from "../../lib/ImageData";
+import { ParkingPlaces } from "../../lib/ParkingPlaces";
 import { getFileUrl, getImageId, getImageRef, shouldRunForFile } from "../utils";
 
 function parseExifData(fileBuffer: Buffer): ImageData {

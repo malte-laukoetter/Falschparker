@@ -160,7 +160,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../lib/ParkingPlaces';
+import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
 import ReportCardTagLine from "./ReportCardTagLine.vue";
 import ReportCardImageCarousel from "./ReportCardImageCarousel.vue";
 

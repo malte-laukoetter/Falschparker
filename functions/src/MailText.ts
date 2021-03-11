@@ -1,4 +1,4 @@
-import { ImageData } from "../../lib/ImageData";
+import { ImageData } from "../lib/ImageData";
 import Intl from "intl";
 import MailComposer from "nodemailer/lib/mail-composer";
 

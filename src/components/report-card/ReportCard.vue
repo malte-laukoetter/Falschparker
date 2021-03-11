@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../lib/ParkingPlaces';
+import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
 import ReportCardEdit from "./ReportCardEdit.vue";
 import ReportCardSmall from "./ReportCardSmall.vue";
 import ReportCardLarge from "./ReportCardLarge.vue";
