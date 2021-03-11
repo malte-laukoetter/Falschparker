@@ -4,8 +4,7 @@ on:
     branches:
       - master
     paths:
-      - 'packages/@ergin/hh-report-firebase-functions/**'
-      - 'packages/@ergin/hh-report-common/**'
+      - 'functions/**'
 
 jobs:
   deploy:
