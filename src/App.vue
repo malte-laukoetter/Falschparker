@@ -22,9 +22,7 @@
       <router-view/>
     </v-main>
     <v-footer app absolute padless>
-      <v-col class="text-center" cols="12">
-        {{ commitRef }} | {{context}} | {{buildId}} | {{buildDate}}
-      </v-col>
+      <Footer></Footer>
     </v-footer>
   </v-app>
 </template>
@@ -33,14 +31,15 @@
 import  firebase from 'firebase/app'
 import 'firebase/auth'
 import { Component, Vue, Watch } from 'vue-property-decorator'
+import Footer from '@/components/Footer.vue'
 
-@Component
+@Component({
+  components: {
+    Footer
+  }
+})
 export default class App extends Vue {
   dark: boolean = true
-  commitRef: string = process.env.VUE_APP_COMMIT_REF
-  context: string = process.env.VUE_APP_CONTEXT
-  buildId: string = process.env.VUE_APP_BUILD_ID
-  buildDate: string = process.env.VUE_APP_BUILD_DATE
 
   @Watch('dark')
   updateTheme() {
