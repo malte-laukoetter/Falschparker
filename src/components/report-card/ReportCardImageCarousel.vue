@@ -7,8 +7,8 @@
   >
     <v-carousel-item v-for="image in images" :key="image.src">
       <v-img
-        :lazy-src="image.thumbnail.replace('googleapis', 'cloud.google')"
-        :src="image.src.replace('googleapis', 'cloud.google')"
+        :lazy-src="image.thumbnail ? image.thumbnail.replace('googleapis', 'cloud.google') : ''"
+        :src="image.src ? image.src.replace('googleapis', 'cloud.google') : ''"
         :aspect-ratio="16 / 9"
         @click.stop="() => $emit('click-image')"
       ></v-img>

@@ -36,14 +36,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Ref } from 'vue-property-decorator'
 import { L, LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet'
 import Vue2LeafletMarkercluster from 'vue2-leaflet-markercluster'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import { ImageData } from '../../functions/lib/ImageData'
-import { ParkingPlaces } from '../../functions/lib/ParkingPlaces'
 import '../vuefire'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
@@ -88,6 +87,10 @@ const openStreetMapTileProvider: {readonly [K in OpenStreetMapTileProviderKey]: 
   }
 }
 
+function toLatLongs(imageData: ImageData[]): L.LatLngBoundsExpression {
+    return imageData.map((data) => data.loc).filter((loc): loc is {lat: number, lon: number} => !!(loc && loc.lat && loc.lon)).map(({ lat, lon }) => [lat, lon] as [number, number]);
+}
+
 @Component({
   components: {
     LMap,
@@ -105,14 +108,14 @@ const openStreetMapTileProvider: {readonly [K in OpenStreetMapTileProviderKey]: 
       items: {
         source: db.ref('users').child(user ? user.uid : 'no-user').child('images'),
         asObject: false,
-        readyCallback: (e: firebase.database.DataSnapshot) => {
-          const data: {[key: string]: ImageData} = e.val()
+        readyCallback: function (this: MapView, e: firebase.database.DataSnapshot) {
+          if (this.map?.mapObject != null) {
+            const data: {[key: string]: ImageData} = e.val()
 
-          const latLons: L.LatLngBoundsExpression =
-           Object.values(data).map((data) => data.loc).filter((loc): loc is {lat: number, lon: number} => !!(loc && loc.lat && loc.lon)).map(({ lat, lon }) => [lat, lon] as [number, number])
+            const latLons: L.LatLngBoundsExpression = toLatLongs(Object.values(data));
 
-          const map: L.Map = ((this as MapView).$refs.map as any).mapObject
-          map.fitBounds(latLons)
+            this.map?.mapObject.fitBounds(latLons);
+          }
         }
       }
     }
@@ -122,8 +125,18 @@ export default class MapView extends Vue {
   public items: FirebaseImageData[] = []
   public provider: OpenStreetMapTileProviderKey = 'watercolor'
 
+  @Ref('map')
+  public map?: HTMLElement & {mapObject?: L.Map};
+
   get tileProvider (): OpenStreetMapTileProvider {
     return openStreetMapTileProvider[this.provider]
+  }
+
+  mounted() {
+    if (this.map?.mapObject != null) {
+      const latLons: L.LatLngBoundsExpression = toLatLongs(this.items);
+      this.map.mapObject.fitBounds(latLons);
+    }
   }
 }
 </script>
