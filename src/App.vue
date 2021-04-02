@@ -18,9 +18,14 @@
         <v-btn icon @click="dark = !dark"><v-icon>mdi-brightness-6</v-icon></v-btn>
       </v-toolbar-items>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <router-view/>
-    </v-content>
+    </v-main>
+    <v-footer app absolute padless>
+      <v-col class="text-center" cols="12">
+        {{ commitRef }} | {{context}} | {{buildId}} | {{buildDate}}
+      </v-col>
+    </v-footer>
   </v-app>
 </template>
 
@@ -32,6 +37,10 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 @Component
 export default class App extends Vue {
   dark: boolean = true
+  commitRef: string = process.env.VUE_APP_COMMIT_REF
+  context: string = process.env.VUE_APP_CONTEXT
+  buildId: string = process.env.VUE_APP_BUILD_ID
+  buildDate: string = process.env.VUE_APP_BUILD_DATE
 
   @Watch('dark')
   updateTheme() {

@@ -1,3 +1,5 @@
+process.env.VUE_APP_BUILD_DATE = new Date().toISOString();
+
 module.exports = {
   pwa: {
     name: 'Falschparker',
