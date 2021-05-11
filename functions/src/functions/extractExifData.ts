@@ -42,12 +42,7 @@ export const extractExifData = functions
 
     functions.logger.log(getImageId(object), exifData);
 
-    const imgUrl = await getFileUrl(
-      file,
-      new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10
-    );
-
     // Store information in database.
-    getImageRef(object).update({ ...exifData, filePath: object.name, url: imgUrl });
+    getImageRef(object).update({ ...exifData, filePath: object.name });
   });
   

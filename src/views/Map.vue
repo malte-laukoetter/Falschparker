@@ -28,7 +28,7 @@
               :intend-reason="item.intendReason"
               :offence="item.where"
               :address="item.address"
-              :images="[{ src: item.url, thumbnail: item.thumbnail }]"></report-card>
+              :images="[item.filePath]"></report-card>
         </l-popup>
       </l-marker>
     </v-marker-cluster>
@@ -47,6 +47,9 @@ import '../vuefire'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'; 
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 import ReportCard from '@/components/report-card/ReportCard.vue'
 
@@ -55,9 +58,9 @@ type FirebaseImageData = ImageData & { '.key': string }
 delete (L.Icon.Default.prototype as any)._getIconUrl
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl
 })
 
 type OpenStreetMapTileProviderKey = 'watercolor' | 'dark' | 'base'

@@ -13,16 +13,17 @@ async function createThumbnailFile(object: functions.storage.ObjectMetadata) {
   const fileName = basename(filePath);
 
   const bucket = storage().bucket(object.bucket);
+  const thumbnailBucket = storage().bucket('falschparker-thumbnails');
   const file = bucket.file(filePath);
 
   const thumbFilePath = normalize(
-    join(dirname(filePath), `${THUMB_PREFIX}${fileName}`)
+    join(dirname(filePath), `${fileName}`)
   );
   const tempLocalFile = join(tmpdir(), filePath);
   const tempLocalThumbFile = join(tmpdir(), thumbFilePath);
 
   // Cloud Storage files.
-  const thumbFile = bucket.file(thumbFilePath);
+  const thumbFile = thumbnailBucket.file(thumbFilePath);
   const metadata = { contentType: object.contentType };
 
   // Create the temp directory where the storage file will be downloaded.
@@ -45,9 +46,9 @@ async function createThumbnailFile(object: functions.storage.ObjectMetadata) {
   );
 
   // Uploading the Thumbnail.
-  await bucket.upload(tempLocalThumbFile, {
+  await thumbnailBucket.upload(tempLocalThumbFile, {
     destination: thumbFilePath,
-    metadata: metadata,
+    metadata: metadata
   });
 
   // Once the image has been uploaded delete the local files to free up disk space.
@@ -71,12 +72,6 @@ export const createThumbnail = functions
     functions.logger.log(object);
 
     // Create thumbnail.
-    const thumbFile = await createThumbnailFile(object);
-    const thumbFileUrl = await getFileUrl(
-      thumbFile,
-      new Date().getTime() + 1000 * 60 * 60 * 24 * 365 * 10
-    );
-
-    // Store information in database.
-    getImageRef(object).child('thumbnail').set(thumbFileUrl);
+    await createThumbnailFile(object);
   });
+  

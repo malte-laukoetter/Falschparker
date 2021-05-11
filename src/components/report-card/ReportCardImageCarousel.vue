@@ -7,8 +7,8 @@
   >
     <v-carousel-item v-for="image in images" :key="image.src">
       <v-img
-        :lazy-src="image.thumbnail ? image.thumbnail.replace('googleapis', 'cloud.google') : ''"
-        :src="image.src ? image.src.replace('googleapis', 'cloud.google') : ''"
+        :lazy-src="`https://storage.googleapis.com/falschparker-thumbnails/${image}`"
+        :src="`https://storage.googleapis.com/falschparker/${image}`"
         :aspect-ratio="16 / 9"
         @click.stop="() => $emit('click-image')"
       ></v-img>
@@ -22,9 +22,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component
 export default class ReportCardImageCarousel extends Vue {
   @Prop({ type: Array, default: () => [] })
-  public images!: {
-    src: string;
-    thumbnail: string;
-  }[];
+  public images!: string[];
 }
 </script>

@@ -74,10 +74,7 @@ export default class Send extends Vue {
     console.log(items.map(item => item.loc))
     return items.map(item => ({
       ... item,
-      images: [{
-        src: item.url,
-        thumbnail: item.thumbnail ? item.thumbnail : item.url
-      }]
+      images: [item.filePath]
     }))
   }  
 }
