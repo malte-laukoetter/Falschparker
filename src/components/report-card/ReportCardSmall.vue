@@ -25,8 +25,8 @@
       <v-list-item-avatar tile size="80">
         <v-img
           @click-image="() => $emit('click-image')"
-          :lazy-src="`https://storage.googleapis.com/falschparker-thumbnails/${images[0]}`"
-          :src="`https://storage.googleapis.com/falschparker/${images[0]}`"
+          :lazy-src="`https://storage.cloud.google.com/falschparker-thumbnails/${images[0]}`"
+          :src="`https://storage.cloud.google.com/falschparker/${images[0]}`"
           :aspect-ratio="1 / 1"
         ></v-img>
       </v-list-item-avatar>

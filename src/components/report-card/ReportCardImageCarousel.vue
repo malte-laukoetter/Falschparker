@@ -7,8 +7,8 @@
   >
     <v-carousel-item v-for="image in images" :key="image.src">
       <v-img
-        :lazy-src="`https://storage.googleapis.com/falschparker-thumbnails/${image}`"
-        :src="`https://storage.googleapis.com/falschparker/${image}`"
+        :lazy-src="`https://storage.cloud.google.com/falschparker-thumbnails/${image}`"
+        :src="`https://storage.cloud.google.com/falschparker/${image}`"
         :aspect-ratio="16 / 9"
         @click.stop="() => $emit('click-image')"
       ></v-img>
