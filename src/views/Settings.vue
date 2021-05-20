@@ -28,7 +28,7 @@
           @change="() => saveMailTo()"
           label="Mail Addresse der Bußgeldstelle"
           single-line
-          :items="['anzeigenbussgeldstelle@eza.hamburg.de', 'anzeigenbussgeldstelle@owi-verkehr.hamburg.de', 'test@lergin.de']"
+          :items="['anzeigenbussgeldstelle@owi-verkehr.hamburg.de', 'test@lergin.de']"
         ></v-combobox>
       </v-flex>
     </v-layout>
