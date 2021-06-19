@@ -53,7 +53,7 @@ export default class Login extends Vue {
         const dataRef =  firebase.database().ref('users').child(user.uid).child('data')
 
         dataRef.child('code').set(code)
-        dataRef.child('mailTo').set('anzeigenbussgeldstelle@eza.hamburg.de')
+        dataRef.child('mailTo').set('anzeigenbussgeldstelle@owi-verkehr.hamburg.de')
         dataRef.child('name').set(user.displayName)
       })
     })
