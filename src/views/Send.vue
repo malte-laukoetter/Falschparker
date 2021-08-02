@@ -69,12 +69,23 @@ export default class Send extends Vue {
   send (item: FirebaseImageData) {
     this.getFirebaseItemRef(item).child('send').set(true)
   }
+
+  mapItemsToKfzCount(items: FirebaseImageData[]): Map<string| undefined, number> {
+    return items.reduce((acc, item) => {
+      acc.set(item.plate, (acc.get(item.plate) ?? 0) + 1);
+      return acc;
+    }, new Map())
+  }
   
   convertItems(items: FirebaseImageData[]) {
     console.log(items.map(item => item.loc))
+    const kfzCounts = this.mapItemsToKfzCount(items);
+
+  console.log(kfzCounts);
     return items.map(item => ({
       ... item,
-      images: [item.filePath]
+      images: [item.filePath],
+      plateCount: kfzCounts.get(item.plate) ?? 0
     }))
   }  
 }

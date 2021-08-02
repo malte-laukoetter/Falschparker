@@ -1,8 +1,15 @@
 <template>
+<v-badge
+        color="info"
+        :content="plateCount"
+        :value="plateCount > 1"
+        overlap
+        bordered
+      >
   <v-card v-bind="$attrs">
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline">{{ localeDate }}</div>
+        <div class="overline">{{ localeDate }} - {{plateCount}}</div>
         <v-list-item-title class="headline">{{
           licensePlate
         }}</v-list-item-title>
@@ -40,6 +47,8 @@
       ></report-card-tag-line>
     </v-card-text>
   </v-card>
+
+  </v-badge>
 </template>
 
 <script lang="ts">
@@ -87,6 +96,9 @@ export default class ReportCardSmall extends Vue {
 
   @Prop()
   public imageUrl!: string;
+
+  @Prop(Number)
+  public plateCount!: number;
 
   @Prop({ type: Array, default: () => [] })
   public images!: {

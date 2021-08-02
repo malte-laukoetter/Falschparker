@@ -69,6 +69,9 @@ export default class ReportCard extends Vue {
   @Prop()
   public address!: string;
 
+  @Prop(Number)
+  public plateCount!: number;
+
   @Prop(Object)
   public location!: {
     lat: number,

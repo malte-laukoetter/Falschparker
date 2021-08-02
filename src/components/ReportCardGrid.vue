@@ -51,6 +51,7 @@
               :offence="item.where"
               :address="item.address"
               :images="item.images"
+              :plate-count="item.plateCount"
               @change:license-plate="
                 e => publishItemEvent('change:license-plate', item, e)
               "
@@ -88,7 +89,6 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { ImageData } from '../../functions/lib/ImageData'
-import { ParkingPlaces } from '../../functions/lib/ParkingPlaces'
 import ReportCard from "./report-card/ReportCard.vue";
 
 function getNestedValue(
@@ -170,8 +170,6 @@ export default class ReportCardGrid extends Vue {
       if (!groupDesc) {
         return Object.fromEntries(Object.entries(groupedByMonth).reverse());
       }
-
-      console.log(items.filter(item => !item.send))
 
       return groupedByMonth;
     } else {
