@@ -9,7 +9,7 @@
   <v-card v-bind="$attrs">
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline">{{ localeDate }} - {{plateCount}}</div>
+        <div class="overline">{{ localeDate }}</div>
         <v-list-item-title class="headline">{{
           licensePlate
         }}</v-list-item-title>
