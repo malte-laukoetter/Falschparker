@@ -104,9 +104,9 @@
         <v-chip
           outlined
           v-for="place in parkingPlaces"
-          :key="place"
-          :value="place"
-          >{{ place }}</v-chip
+          :key="place.tbnr"
+          :value="place.tbnr"
+          >{{ place.title }}</v-chip
         >
       </v-chip-group>
 
@@ -160,7 +160,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
+import { Tatbestand, TATBESTÄNDE } from '../../../functions/lib/ParkingPlaces';
 import ReportCardTagLine from "./ReportCardTagLine.vue";
 import ReportCardImageCarousel from "./ReportCardImageCarousel.vue";
 
@@ -193,7 +193,7 @@ export default class ReportCardEdit extends Vue {
   public intendReason!: string;
 
   @Prop()
-  public offence!: ParkingPlaces;
+  public offence!: string;
 
   @Prop()
   public address!: string;
@@ -216,20 +216,9 @@ export default class ReportCardEdit extends Vue {
     thumbnail: string;
   }[];
 
-  private parkingPlaces: ParkingPlaces[] = [
-    ParkingPlaces.BTK_712037,
-    ParkingPlaces.BTK_712031,
-    ParkingPlaces.BTK_741033,
-    ParkingPlaces.BTK_741034_1,
-    ParkingPlaces.BTK_741034_2,
-    ParkingPlaces.BTK_742107,
-    ParkingPlaces.BTK_712029,
-    ParkingPlaces.BTK_712033,
-    ParkingPlaces.BTK_741015,
-    ParkingPlaces.BTK_741017,
-    ParkingPlaces.BTK_741018,
-    ParkingPlaces.BTK_141332
-  ];
+  private parkingPlaces: Tatbestand[] = Object.values(TATBESTÄNDE).sort((a,b) => a.order - b.order);
+
+  private selectedImage: number = 0;
 
   get localeDate() {
     return new Date(this.date * 1000).toLocaleString(undefined, {

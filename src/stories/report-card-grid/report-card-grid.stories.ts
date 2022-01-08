@@ -1,5 +1,4 @@
 import ReportCardGrid from "@/components/ReportCardGrid.vue";
-import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
 
 export default {
   component: ReportCardGrid,
@@ -12,7 +11,7 @@ const items = [
     plate: "HH AB 1234",
     date: 1584876515118,
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
-    where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+    where: "Geh/Radweg",
     send: false,
     location: {
       lat: 52.0,
@@ -33,7 +32,7 @@ const items = [
     plate: "HH AB 1234",
     date: 1584876215118,
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
-    where: ParkingPlaces.INTERSECTION,
+    where: "Kreuzung",
     location: {
       lat: 52.0,
       lon: 10.0
@@ -53,7 +52,7 @@ const items = [
     plate: "HH AB 1234",
     date: 1584876515118,
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
-    where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+    where: "Geh-/Radweg",
     endangering: true,
     location: {
       lat: 52.0,
@@ -80,7 +79,7 @@ const items = [
     plate: "HH AB 1234",
     date: 1584876515118,
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
-    where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+    where: "Geh-/Radweg",
     endangering: true,
     location: {
       lat: 52.0,
@@ -109,7 +108,7 @@ for (let i = 0; i < 20; i++) {
     plate: "HH AB 1234",
     date: 1582871215118,
     address: "Beim Strohhause 30, 20097 Hamburg, Germany",
-    where: ParkingPlaces.INTERSECTION,
+    where: "Kreuzung",
     send: true,
     location: {
       lat: 52.0,

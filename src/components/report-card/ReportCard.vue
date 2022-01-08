@@ -20,7 +20,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
 import ReportCardEdit from "./ReportCardEdit.vue";
 import ReportCardSmall from "./ReportCardSmall.vue";
 import ReportCardLarge from "./ReportCardLarge.vue";
@@ -64,7 +63,7 @@ export default class ReportCard extends Vue {
   public intendReason!: string;
 
   @Prop()
-  public offence!: ParkingPlaces;
+  public offence!: string;
 
   @Prop()
   public address!: string;

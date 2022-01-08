@@ -1,37 +1,83 @@
-
-export enum ParkingPlaces {
-  BTK_712037 = "Unbeschilderter Radweg",
-  BTK_712031 = "Gehweg",
-  BTK_712019 = "Kreuzungsbereich",
-  BTK_741033 = "Radweg, Zeichen 237",
-  BTK_741034_1 = "Gemeinsamen Geh- und Radweg, Zeichen 240",
-  BTK_741034_2 = "Getrennten Geh- und Radweg, Zeichen 241",
-  BTK_742107 = "Schutzstreifen für den Radverkeht, Zeichen 340",
-  BTK_712029 = "Bordsteinabsenkung",
-  BTK_712033 = "Zweite Reihe",
-  BTK_741015 = "Fußgängerüberweg",
-  BTK_141245 = "Sperrfläche, Zeichen 298",
-  BTK_741017 = "Absolutes Halteverbot, Zeichen 283",
-  BTK_741018 = "Eingeschränktes Halteverbot, Zeichen 286",
-  BTK_141332 = "links von einer Fahrbahnbegrenzung (Zeichen 295) mit Sonderweg rechts", //(Ziff. 2a zu Nr. 68 im Abschnitt 9 der Anlage 2 zu § 41 Absatz 1 StVO)"
-  /**
-   * @deprecated
-   */
-  BICYCLE_OR_FOOD_PATH = "Geh-/Radweg",
-  /**
-   * @deprecated
-   */
-  BICYCLE_PROTECTION_LANE = "Schutzstreifen",
-  /**
-   * @deprecated
-   */
-  INTERSECTION = "Kreuzung",
-  /**
-   * @deprecated
-   */
-  NOT_STREET_EDGE = "nicht am Straßenrand",
-  /**
-   * @deprecated
-   */
-  EMERGENCY_ACCESS_ROAD = "Feuerwehrzufahrt",
+export type Tatbestand = {
+  order: number,
+  tbnr: string,
+  title: string,
+  mailText: string
 }
+
+export const TATBESTÄNDE = Object.fromEntries(
+  [
+    {
+      order: 0,
+      tbnr: "112050",
+      title: "Gehweg",
+      mailText: "Gehweg"
+    },
+    {
+      order: 10,
+      tbnr: "112474",
+      title: "Radweg",
+      mailText: "Radweg"
+    },
+    {
+      order: 11,
+      tbnr: "141174",
+      title: "bnpf. Radweg",
+      mailText: "benutzungspflichtiger Radweg"
+    },
+    {
+      order: 12,
+      tbnr: "142170",
+      title: "Schutzstreifen",
+      mailText: "Schutzstreifen, Zeichen 340"
+    },
+    {
+      order: 50,
+      tbnr: "141302",
+      title: "Fußgängerüberweg",
+      mailText: "weniger als 5 Meter vor einem Fußgängerüberweg"
+    },
+    {
+      order: 40,
+      tbnr: "112262",
+      title: "Kreuzung",
+      mailText: "weniger als 5 Meter Abstand zur Kreuzung"
+    },
+    {
+      order: 35,
+      tbnr: "112262",
+      title: "Sperrfläche",
+      mailText: "Sperrfläche, Zeichen 298"
+    },
+    {
+      order: 60,
+      tbnr: "112262",
+      title: "2. Reihe",
+      mailText: "in der Zweiten Reihe"
+    },
+    {
+      order: 30,
+      tbnr: "112372",
+      title: "Bordsteinabsenkung",
+      mailText: "vor einer Bordsteinabsenkung"
+    },
+    {
+      order: 20,
+      tbnr: "141332",
+      title: "Fahrbahnbegrenzung",
+      mailText: "links von einer Fahrbahnbegrenzung (Zeichen 295)"
+    },
+    {
+      order: 55,
+      tbnr: "142278",
+      title: "Behindertenparkplatz",
+      mailText: "gekennzeichneter Behindertenparkplatz"
+    },
+    {
+      order: 70,
+      tbnr: "901400",
+      title: "Grünfläche",
+      mailText: "Grünfläche"
+    }
+  ].map(tatbestand => [tatbestand.tbnr, tatbestand])
+);

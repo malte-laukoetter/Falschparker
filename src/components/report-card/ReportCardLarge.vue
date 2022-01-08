@@ -13,7 +13,7 @@
         :endangering="endangering"
         :obstruction="obstruction"
         :with-intend="withIntend"
-        :offence="offence"
+        :offence="parseTatbestand(offence)"
       ></report-card-tag-line>
     </v-card-text>
 
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
+import { TATBESTÄNDE } from '../../../functions/lib/ParkingPlaces';
 import ReportCardTagLine from "./ReportCardTagLine.vue";
 import ReportCardImageCarousel from "./ReportCardImageCarousel.vue";
 import ReportCardAddressListItem from "./ReportCardAddressListItem.vue";
@@ -61,7 +61,7 @@ export default class ReportCardLarge extends Vue {
   public withIntend!: boolean;
 
   @Prop()
-  public offence!: ParkingPlaces;
+  public offence!: string;
 
   @Prop()
   public address!: string;
@@ -86,6 +86,10 @@ export default class ReportCardLarge extends Vue {
       hour: "numeric",
       minute: "numeric"
     });
+  }
+
+  parseTatbestand(tatbestandsNummer: string) {
+    return TATBESTÄNDE[tatbestandsNummer]?.title ?? tatbestandsNummer
   }
 }
 </script>

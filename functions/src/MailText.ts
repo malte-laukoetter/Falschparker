@@ -1,4 +1,5 @@
 import { ImageData } from "../lib/ImageData";
+import { TATBESTÄNDE } from "../lib/ParkingPlaces";
 import Intl from "intl";
 import MailComposer from "nodemailer/lib/mail-composer";
 
@@ -66,6 +67,8 @@ export function tatort({ address, loc: { lat, lon } }: MailTemplateOptions) {
 }
 
 export function tatvorwurf({parking, where, endangering, obstruction, intend, intendReason}: MailTemplateOptions) {
+  const tatbestand = TATBESTÄNDE[where].mailText ?? where;
+
   let modifierText = ''
   if (endangering && obstruction) {
     modifierText = ' mit Behinderung und Gefährdung'
@@ -77,7 +80,9 @@ export function tatvorwurf({parking, where, endangering, obstruction, intend, in
 
   return `${intend ? `Vorsätzliches, u` : `U`}nzulässiges ${
     parking ? `Parken` : `Halten`
-  } (${where})${modifierText}${intendReason && intendReason.length > 0 ? `; ${intendReason}`: ``}`;
+  } (${tatbestand})${modifierText}${
+    intendReason && intendReason.length > 0 ? `; ${intendReason}` : ``
+  }`;
 }
 
 export function mailContent(options: MailTemplateOptions): string {

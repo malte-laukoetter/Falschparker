@@ -11,7 +11,6 @@ import {
   mailTemplate,
   MailTemplateOptions,
 } from "../src/MailText";
-import { ParkingPlaces } from "../lib/ParkingPlaces";
 
 describe("convertDecimalLocationToStr(number)", () => {
   test("53.555446 -> 53°33'20\"", () => {
@@ -84,11 +83,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: false,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: false,
         endangering: false,
         intend: false,
-        intendReason: "",
+        intendReason: ""
       } as MailTemplateOptions)
     ).toBe("Unzulässiges Halten (Geh-/Radweg)");
   });
@@ -96,11 +95,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: ParkingPlaces.INTERSECTION,
+        where: "Kreuzung",
         obstruction: false,
         endangering: false,
         intend: false,
-        intendReason: "",
+        intendReason: ""
       } as MailTemplateOptions)
     ).toBe("Unzulässiges Parken (Kreuzung)");
   });
@@ -108,11 +107,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: true,
         endangering: false,
         intend: false,
-        intendReason: "",
+        intendReason: ""
       } as MailTemplateOptions)
     ).toBe("Unzulässiges Parken (Geh-/Radweg) mit Behinderung");
   });
@@ -120,11 +119,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: false,
         endangering: true,
         intend: false,
-        intendReason: "",
+        intendReason: ""
       } as MailTemplateOptions)
     ).toBe("Unzulässiges Parken (Geh-/Radweg) mit Gefährdung");
   });
@@ -132,11 +131,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: true,
         endangering: true,
         intend: false,
-        intendReason: "",
+        intendReason: ""
       } as MailTemplateOptions)
     ).toBe("Unzulässiges Parken (Geh-/Radweg) mit Behinderung und Gefährdung");
   });
@@ -144,11 +143,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: false,
         endangering: false,
         intend: true,
-        intendReason: "",
+        intendReason: ""
       } as MailTemplateOptions)
     ).toBe("Vorsätzliches, unzulässiges Parken (Geh-/Radweg)");
   });
@@ -156,11 +155,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: true,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: false,
         endangering: false,
         intend: true,
-        intendReason: "Bereits zum 20. mal an dieser Stelle Angezeigt",
+        intendReason: "Bereits zum 20. mal an dieser Stelle Angezeigt"
       } as MailTemplateOptions)
     ).toBe(
       "Vorsätzliches, unzulässiges Parken (Geh-/Radweg); Bereits zum 20. mal an dieser Stelle Angezeigt"
@@ -170,11 +169,11 @@ describe("tatvorwurf()", () => {
     expect(
       tatvorwurf({
         parking: false,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: true,
         endangering: true,
         intend: true,
-        intendReason: "Bereits zum 20. mal an dieser Stelle Angezeigt",
+        intendReason: "Bereits zum 20. mal an dieser Stelle Angezeigt"
       } as MailTemplateOptions)
     ).toBe(
       "Vorsätzliches, unzulässiges Halten (Geh-/Radweg) mit Behinderung und Gefährdung; Bereits zum 20. mal an dieser Stelle Angezeigt"
@@ -198,7 +197,7 @@ describe("mailContent()", () => {
         plate: "HH AB 20",
         date: 1588020191,
         parking: false,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: false,
         endangering: false,
         intend: false,
@@ -210,9 +209,9 @@ describe("mailContent()", () => {
         fileContentType: "image/png",
         loc: {
           lat: 53.163056,
-          lon: 9.561266,
+          lon: 9.561266
         },
-        address: "Musterstraße 23, 12345 Musterstadt",
+        address: "Musterstraße 23, 12345 Musterstadt"
       })
     ).toBe(`Sehr geehrte Damen und Herren,
 
@@ -242,7 +241,7 @@ describe("mailTemplate()", () => {
         plate: "HH AB 20",
         date: 1588020191,
         parking: false,
-        where: ParkingPlaces.BICYCLE_OR_FOOD_PATH,
+        where: "Geh-/Radweg",
         obstruction: false,
         endangering: false,
         intend: false,
@@ -250,14 +249,14 @@ describe("mailTemplate()", () => {
         reporterName: "Max Mustermann",
         reporterAddress: "Muserstraße 1, 12345 Musterstadt",
         fileName: "file.jpg",
-        file: new Buffer('empty'),
+        file: new Buffer("empty"),
         fileContentType: "image/jpg",
         loc: {
           lat: 53.163056,
-          lon: 9.561266,
+          lon: 9.561266
         },
-        address: "Musterstraße 23, 12345 Musterstadt",
+        address: "Musterstraße 23, 12345 Musterstadt"
       })
-    ).resolves.toMatch('anzeigenbusgeldstelle@bzg.hamburg.de');
+    ).resolves.toMatch("anzeigenbusgeldstelle@bzg.hamburg.de");
   });
 });

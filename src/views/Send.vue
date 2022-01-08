@@ -30,7 +30,6 @@ import  firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import { ImageData } from '../../functions/lib/ImageData'
-import { ParkingPlaces } from '../../functions/lib/ParkingPlaces'
 import '../vuefire'
 import ReportCardGrid from '@/components/ReportCardGrid.vue'
 import Upload from '@/components/Upload.vue'
@@ -52,8 +51,6 @@ type FirebaseImageData = ImageData & {'.key': string}
   }
 })
 export default class Send extends Vue {
-  private parkingPlaces: ParkingPlaces[] = Object.values(ParkingPlaces)
-
   private getFirebaseItemRef (item: FirebaseImageData) {
     return this.$firebaseRefs.items.child(item['.key'])
   }

@@ -2,8 +2,7 @@ import * as ExifParser from "exif-parser";
 import { storage } from "firebase-admin";
 import * as functions from "firebase-functions";
 import { ImageData } from "../../lib/ImageData";
-import { ParkingPlaces } from "../../lib/ParkingPlaces";
-import { getFileUrl, getImageId, getImageRef, shouldRunForFile } from "../utils";
+import { getImageId, getImageRef, shouldRunForFile } from "../utils";
 
 function parseExifData(fileBuffer: Buffer): ImageData {
   const parser = ExifParser.create(fileBuffer);
@@ -17,8 +16,7 @@ function parseExifData(fileBuffer: Buffer): ImageData {
       lat,
       lon,
     },
-    date,
-    where: ParkingPlaces.BTK_712031
+    date
   };
 }
 

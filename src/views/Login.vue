@@ -15,8 +15,6 @@ import { Component, Vue } from 'vue-property-decorator'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-import * as uuid from 'uuid/v1'
-import firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 
 @Component
@@ -50,15 +48,9 @@ export default class Login extends Vue {
          scope: SCOPE,
          prompt: 'consent'
       });
-
       const { id_token } = googleUser.getAuthResponse();
 
-      console.log(googleUser, code, id_token);
-
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-
-      console.log(credential);
-
       const { user: firebaseUser } = await  firebase.auth().signInWithCredential(credential);
 
       if (!firebaseUser) return
