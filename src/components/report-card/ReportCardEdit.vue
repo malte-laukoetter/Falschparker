@@ -59,7 +59,7 @@
           ></v-text-field>
         </template>
         <GmapMap
-          :center="{lat: location.lat == 0 ? 53 : location.lat, lng: location.lon == 0 ? 10 : location.lon}"
+          :center="{lat: location.lat == 0 ? 53.52179749151783 : location.lat, lng: location.lon == 0 ? 9.99556059602402 : location.lon}"
           :zoom="15"
           style="width: 500px; height: 300px"
           mapTypeId="roadmap"
@@ -71,7 +71,7 @@
         >
           <GmapMarker
             draggable
-            :position="{lat: location.lat == 0 ? 53 : location.lat, lng: location.lon == 0 ? 10 : location.lon}"
+            :position="{lat: location.lat == 0 ? 53.52179749151783 : location.lat, lng: location.lon == 0 ? 9.99556059602402 : location.lon}"
             @dragend="(({latLng: {lat, lng}}) => {
               changeEvent('location', {lon: lng(), lat: lat()})
             })"
