@@ -95,12 +95,16 @@ export function mailContent(options: MailTemplateOptions): string {
 
 hiermit zeige ich folgende Verkehrsordnungswidrigkeit an:
 
-Tattag: ${dayOfOffence(options)}
-Tatzeit: ${timeOfOffence(options)}
+
+Kennzeichen: ${plate}
 Tatort: ${tatort(options)}
-Kfz-Kennzeichen: ${plate}
-genauer Tatvorwurf: ${tatvorwurf(options)}
-Name und Anschrift des Anzeigenden: ${reporterName}, ${reporterAddress}
+Tatzeit: ${dayOfOffence(options)} ${timeOfOffence(options)}
+Verstoß: ${tatvorwurf(options)}
+Beweis: Foto im Anhang
+
+Name des Anzeigenden: ${reporterName}
+Anschrift des Anzeigenden: ${reporterAddress}
+
 
 Meine oben gemachten Angaben einschließlich meiner Personalien sind zutreffend und vollständig.
 Mir ist bewusst, dass ich als Zeuge zur wahrheitsgemäßen Aussage und auch zu einem möglichen Erscheinen vor Gericht verpflichtet bin.
