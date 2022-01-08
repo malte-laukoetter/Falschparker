@@ -10,10 +10,10 @@ async function getRefreshToken (code: string) {
   formData.append('grant_type', 'authorization_code')
   formData.append('redirect_uri', config().google.auth.redirect_uri)
 
-  const result = await fetch('https://www.googleapis.com/oauth2/v4/token', {
-    method: 'POST',
+  const result = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
     body: formData
-  }).then(res => res.json())
+  }).then(res => res.json());
 
   logger.log(result);
 
