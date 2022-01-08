@@ -46,13 +46,18 @@ export default class Login extends Vue {
         ux_mode: 'popup'
       })
 
-      const { code } = await googleAuth.grantOfflineAccess({
+      const { code } = await googleUser.grantOfflineAccess({
          scope: SCOPE,
-         prompt: 'select_account'
+         prompt: 'consent'
       });
-      const { id_token } = await googleUser.getAuthResponse();
 
-      const credential =  firebase.auth.GoogleAuthProvider.credential(id_token)
+      const { id_token } = googleUser.getAuthResponse();
+
+      console.log(googleUser, code, id_token);
+
+      const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+
+      console.log(credential);
 
       const { user: firebaseUser } = await  firebase.auth().signInWithCredential(credential);
 

@@ -6,7 +6,14 @@ module.exports = {
     workboxOptions: {
       swSrc: './src/service-worker.js'
     },
-    workboxPluginMode: 'InjectManifest'
+    workboxPluginMode: 'InjectManifest',
   },
-  lintOnSave: false
+  lintOnSave: false,
+  configureWebpack: config => {
+    return {
+      output: {
+        hashFunction: "sha256"
+      }
+    };
+  }
 }
