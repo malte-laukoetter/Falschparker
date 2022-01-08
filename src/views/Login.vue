@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <button id="signinButton" @click="login()">Registrieren mit Google</button>
+        <button id="signinButton" @click="login()">Login mit Google</button>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -30,32 +30,43 @@ export default class Login extends Vue {
   }
 
   async login () {
+
+    const SCOPE = 'profile https://www.googleapis.com/auth/gmail.send'
+
     gapi.load('auth2', async function () {
-      // TODO: switch between login and sign up to only create a new refresh token when necessarry
-
-      gapi.auth2.authorize({
+      const googleAuth: gapi.auth2.GoogleAuth = await gapi.auth2.init({
         client_id: '418563000081-k3sf7bmkvmh22p6cs0gf6oup1n0tjnc4.apps.googleusercontent.com',
-        scope: 'profile https://www.googleapis.com/auth/gmail.send',
-        prompt: 'consent',
-        response_type: 'code id_token'
-      }, async function ({ error, id_token: idToken, code }) {
-        if (error) {
-          // An error happened!
-          console.error(error)
-          return
-        }
+        scope: SCOPE,
+        ux_mode: 'popup'
+      }).then(a => a);
 
-        const credential =  firebase.auth.GoogleAuthProvider.credential(idToken)
-        const { user } = await  firebase.auth().signInAndRetrieveDataWithCredential(credential)
-
-        if (!user) return
-
-        const dataRef =  firebase.database().ref('users').child(user.uid).child('data')
-
-        dataRef.child('code').set(code)
-        dataRef.child('mailTo').set('anzeigenbussgeldstelle@owi-verkehr.hamburg.de')
-        dataRef.child('name').set(user.displayName)
+      const googleUser = await googleAuth.signIn({
+        prompt: 'select_account',
+        scope: SCOPE,
+        ux_mode: 'popup'
       })
+
+      const { code } = await googleAuth.grantOfflineAccess({
+         scope: SCOPE,
+         prompt: 'select_account'
+      });
+      const { id_token } = await googleUser.getAuthResponse();
+
+      const credential =  firebase.auth.GoogleAuthProvider.credential(id_token)
+
+      const { user: firebaseUser } = await  firebase.auth().signInWithCredential(credential);
+
+      if (!firebaseUser) return
+
+      const dataRef =  firebase.database().ref('users').child(firebaseUser.uid).child('data')
+
+      dataRef.child('code').set(code)
+      if (!(await dataRef.child('mailTo').get()).exists()) {
+        dataRef.child('mailTo').set('anzeigenbussgeldstelle@owi-verkehr.hamburg.de')
+      }
+      if (!(await dataRef.child('name').get()).exists()) {
+        dataRef.child('name').set(firebaseUser.displayName)
+      }
     })
   }
 }
