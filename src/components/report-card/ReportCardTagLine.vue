@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { ParkingPlaces } from '../../../functions/lib/ParkingPlaces';
+import { TATBESTÄNDE } from '../../../functions/lib/ParkingPlaces';
 
 @Component
 export default class ReportCardTagLine extends Vue {
@@ -21,7 +21,7 @@ export default class ReportCardTagLine extends Vue {
   public withIntend!: boolean;
 
   @Prop()
-  public offence!: ParkingPlaces;
+  public offence!: string;
 
   get tags() {
     let tags = [];
@@ -32,7 +32,7 @@ export default class ReportCardTagLine extends Vue {
       tags.push("Halten");
     }
 
-    tags.push(this.offence);
+    tags.push(TATBESTÄNDE[this.offence]?.title ?? this.offence);
 
     if (this.obstruction) {
       tags.push("Behinderung");
