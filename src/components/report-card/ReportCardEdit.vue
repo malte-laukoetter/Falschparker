@@ -114,7 +114,7 @@
 
       <v-switch
         class="mb-n6"
-        :value="obstruction"
+        :input-value="obstruction"
         inset
         label="Behinderung"
         @change="e => changeEvent('obstruction', e)"
@@ -122,7 +122,7 @@
 
       <v-switch
         class="mb-n6"
-        :value="endangering"
+        :input-value="endangering"
         inset
         label="Gefährdung"
         @change="e => changeEvent('endangering', e)"
@@ -131,7 +131,7 @@
       <v-divider v-if="withIntend" class="mb-4 mt-4"></v-divider>
 
       <v-switch
-        :value="withIntend"
+        :input-value="withIntend"
         inset
         label="Vorsatz"
         @change="e => changeEvent('with-intend', e)"
