@@ -30,10 +30,6 @@ export function dateToISODate(date: Date) {
   return date.toISOString().substr(0, 10);
 }
 
-export function mailTo({ mailTo }: MailTemplateOptions) {
-  return `To: <${mailTo}>`;
-};
-
 export function subject({ plate, date: timestamp }: MailTemplateOptions) {
   const date = new Date(timestamp * 1000);
 
@@ -85,6 +81,13 @@ export function tatvorwurf({parking, where, endangering, obstruction, intend, in
   }`;
 }
 
+
+export function fileName({ plate, date: timestamp }: MailTemplateOptions) {
+  const date = new Date(timestamp * 1000);
+
+  return `${dateToISODate(date)}_${plate.replace(' ', '')}.jpg`;
+};
+
 export function mailContent(options: MailTemplateOptions): string {
   const {
     plate,
@@ -114,27 +117,21 @@ Mit freundlichen Grüßen
 ${reporterName}`;
 }
 
-export function attatchment(fileContentType: string, fileName: string, fileBase64: string) {
-  return `
-Content-Type: ${fileContentType};
-Content-Transfer-Encoding: base64
-Content-ID: <${fileName}>
-Content-Disposition: attachment ;filename="${fileName}"
-
-${fileBase64}`;
-}
-
 export async function mailTemplate(options: MailTemplateOptions): Promise<string> {
-  return (await new MailComposer({
-    to: options.mailTo,
-    attachments: [
-      {
-        filename: options.fileName,
-        contentType: options.fileContentType,
-        content: options.file,
-      },
-    ],
-    subject: subject(options),
-    text: mailContent(options),
-  }).compile().build()).toString();
+  return (
+    await new MailComposer({
+      to: options.mailTo,
+      attachments: [
+        {
+          filename: fileName(options),
+          contentType: options.fileContentType,
+          content: options.file
+        }
+      ],
+      subject: subject(options),
+      text: mailContent(options)
+    })
+      .compile()
+      .build()
+  ).toString();
 }

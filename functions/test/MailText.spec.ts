@@ -1,6 +1,5 @@
 import {
   convertDecimalLocationToStr,
-  mailTo,
   dateToISODate,
   dayOfOffence,
   timeOfOffence,
@@ -177,14 +176,6 @@ describe("tatvorwurf()", () => {
       } as MailTemplateOptions)
     ).toBe(
       "Vorsätzliches, unzulässiges Halten (Geh-/Radweg) mit Behinderung und Gefährdung; Bereits zum 20. mal an dieser Stelle Angezeigt"
-    );
-  });
-});
-
-describe("mailTo()", () => {
-  test("anzeigenbusgeldstelle@bzg.hamburg.de", () => {
-    expect(mailTo({ mailTo: "anzeigenbusgeldstelle@bzg.hamburg.de" } as MailTemplateOptions)).toBe(
-      "To: <anzeigenbusgeldstelle@bzg.hamburg.de>"
     );
   });
 });
